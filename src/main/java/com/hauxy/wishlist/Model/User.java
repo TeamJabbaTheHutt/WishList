@@ -1,4 +1,4 @@
-package Model;
+package com.hauxy.wishlist.Model;
 
 public class User {
     private int user_id;
