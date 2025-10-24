@@ -1,0 +1,34 @@
+Table users {
+  user_id integer [pk]
+  email varchar
+  username varchar
+  password varchar
+}
+
+Table wishlist {
+  wishlist_id integer [pk]
+  user_id integer
+  wishlist_name varchar
+}
+
+Table wish {
+  wish_id integer [pk]
+  wish_name varchar
+  wish_price double
+  wish_link varchar
+}
+
+Table wishes_per_wishlist {
+  wishlist_id integer
+  wish_id integer
+  indexes {
+    (wishlist_id, wish_id) [pk]
+  }
+}
+
+
+Ref: wishlist.user_id > users.user_id
+Ref: wishes_per_wishlist.wishlist_id > wishlist.wishlist_id
+Ref: wishes_per_wishlist.wish_id > wish.wish_id
+
+
