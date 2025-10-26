@@ -4,6 +4,8 @@ import com.hauxy.wishlist.model.Wish;
 import com.hauxy.wishlist.model.WishList;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,6 +154,7 @@ public class DAO {
         return wishes;
     }
     // UPDATE
+    @Transactional
     public void updateWishListPerWishlist(WishList wishList) {
         String sqlDeleteWishesPerWishlist = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ?;";
         jdbc.update(sqlDeleteWishesPerWishlist, wishList.getWichlist_id());
