@@ -11,8 +11,7 @@ public class WishList {
 
 
     public WishList() {}
-    public WishList(int wichlist_id, int user_id, String wishlist_name) {
-        this.wichlist_id = wichlist_id;
+    public WishList(int user_id, String wishlist_name) {
         this.user_id = user_id;
         this.wishlist_name = wishlist_name;
     }

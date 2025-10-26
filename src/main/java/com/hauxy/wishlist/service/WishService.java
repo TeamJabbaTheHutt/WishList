@@ -1,6 +1,7 @@
 package com.hauxy.wishlist.service;
 
 import com.hauxy.wishlist.Repository.DAO.DAO;
+import com.hauxy.wishlist.Repository.repository.WishListRepository;
 import com.hauxy.wishlist.model.Wish;
 import org.springframework.stereotype.Service;
 
@@ -8,17 +9,17 @@ import java.util.List;
 
 @Service
 public class WishService {
-    private DAO dao;
+    private WishListRepository wishListRepository;
 
-    public WishService(DAO dao) {
-        this.dao = dao;
+    public WishService(WishListRepository wishListRepository) {
+        this.wishListRepository = wishListRepository;
     }
 
     //CRUD
 
     // CREATE
     public String createNewWish(Wish newWish) {
-        if (dao.createNewWish(newWish) == 1) {
+        if (wishListRepository.createNewWish(newWish) == 1) {
             return "Success";
         } else {
             return "Failed";
@@ -26,14 +27,14 @@ public class WishService {
     }
     // READ
     public List<Wish> getWishes() {
-        return dao.getWishes();
+        return wishListRepository.getWishes();
     }
     public Wish getWishById(int id) {
-        return dao.getWishById(id);
+        return wishListRepository.getWishById(id);
     }
     // UPDATE
     public String updateWish(Wish newWish) {
-        if (dao.updateWish(newWish) == 1) {
+        if (wishListRepository.updateWish(newWish) == 1) {
             return "Success";
         } else {
             return "Failed";
@@ -41,7 +42,7 @@ public class WishService {
     }
     // DELETE
     public String deleteWishById(int id) {
-        if (dao.deleteUserById(id) == 1) {
+        if (wishListRepository.deleteUserById(id) == 1) {
             return "Success";
         } else {
             return "Failed";

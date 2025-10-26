@@ -34,26 +34,26 @@ public class DAO {
     // READ
     public List<User> getUsers() {
         List<User> users;
-        String sql = "SELECT * FROM users;";
+        String sql = "SELECT * FROM users";
         users = jdbc.query(sql, userRowMapper);
         return users;
     }
 
     public User getUserById(int id) {
-        String sql = "SELECT * FROM users WHERE user_id = ?;";
+        String sql = "SELECT * FROM users WHERE user_id = ?";
         return jdbc.queryForObject(sql, userRowMapper, id);
     }
 
     // UPDATE
 
     public int updateUser(User newUser) {
-        String sql = "UPDATE users SET username = ?, email = ?, password = ? WHERE user_id = ?;";
+        String sql = "UPDATE users SET username = ?, email = ?, password = ? WHERE user_id = ?";
         return jdbc.update(sql, newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
     }
 
     // DELETE
     public int deleteUserById(int id) {
-        String sql = "DELETE FROM users WHERE user_id = ?;";
+        String sql = "DELETE FROM users WHERE user_id = ?";
         return jdbc.update(sql, id);
     }
 
@@ -64,7 +64,7 @@ public class DAO {
 
     // CREATE
     public int createNewWishList(WishList newWishList) {
-        String sql = "INSERT INTO wishlist (user_id, wishlist_name) VALUES (?, ?)";
+        String sql = "INSERT INTO wishlists (user_id, wishlist_name) VALUES (?, ?)";
         return jdbc.update(sql, newWishList.getUser_id(), newWishList.getWishlist_name());
     }
 
@@ -72,25 +72,25 @@ public class DAO {
     // READ
     public List<WishList> getWishLists() {
         List<WishList> wishLists;
-        String sql = "SELECT * FROM wishlists;";
+        String sql = "SELECT * FROM wishlists";
         wishLists = jdbc.query(sql, wishlistRowMapper);
         return wishLists;
     }
 
     public WishList getWishListById(int id) {
-        String sql = "SELECT * FROM wishlists WHERE wishlist_id = ?;";
+        String sql = "SELECT * FROM wishlists WHERE wishlist_id = ?";
         return jdbc.queryForObject(sql, wishlistRowMapper, id);
     }
 
     // UPDATE
     public int updateWishList(WishList newWishList) {
-        String sql =  "UPDATE wishlists SET wishlist_name = ? WHERE wishlist_id = ?;";
+        String sql =  "UPDATE wishlists SET wishlist_name = ? WHERE wishlist_id = ?";
         return jdbc.update(sql, newWishList.getUser_id(), newWishList.getWishlist_name());
     }
 
     // DELETE
     public int deleteWishListById(int id) {
-        String sql = "DELETE FROM wishlists WHERE wishlist_id = ?;";
+        String sql = "DELETE FROM wishlists WHERE wishlist_id = ?";
         return jdbc.update(sql, id);
     }
 
@@ -111,26 +111,26 @@ public class DAO {
 
     public List<Wish> getWishes() {
         List<Wish> wishes;
-        String sql = "SELECT * FROM wishes;";
+        String sql = "SELECT * FROM wish";
         wishes = jdbc.query(sql, wishRowMapper);
         return wishes;
     }
 
     public Wish getWishById(int id) {
-        String sql = "SELECT * FROM wishes WHERE wish_id = ?;";
+        String sql = "SELECT * FROM wish WHERE wish_id = ?";
         return jdbc.queryForObject(sql, wishRowMapper, id);
     }
 
     // UPDATE
     public int updateWish(Wish newWish) {
-        String sql = "UPDATE wish SET wish_name = ?, wish_price = ? WHERE wish_id = ?;";
+        String sql = "UPDATE wish SET wish_name = ?, wish_price = ? WHERE wish_id = ?";
         return jdbc.update(sql, newWish.getWish_name(), newWish.getWish_price(), newWish.getWish_link());
     }
 
 
     // DELETE
     public int deleteWishById(int id) {
-        String sql = "DELETE FROM wish WHERE wish_id = ?;";
+        String sql = "DELETE FROM wish WHERE wish_id = ?";
         return jdbc.update(sql, id);
     }
 
