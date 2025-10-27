@@ -82,8 +82,8 @@ public class WishListRepository {
         return dao.getWishById(id);
     }
     // UPDATE
-    public int updateWish(Wish newWish) {
-        return dao.updateWish(newWish);
+    public int updateWish(Wish newWish, int id) {
+        return dao.updateWish(newWish, id);
 
     }
     // DELETE

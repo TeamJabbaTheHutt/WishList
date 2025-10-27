@@ -33,8 +33,8 @@ public class WishService {
         return wishListRepository.getWishById(id);
     }
     // UPDATE
-    public String updateWish(Wish newWish) {
-        if (wishListRepository.updateWish(newWish) == 1) {
+    public String updateWish(Wish newWish, int id) {
+        if (wishListRepository.updateWish(newWish, id) == 1) {
             return "Success";
         } else {
             return "Failed";

@@ -64,7 +64,7 @@ public class DAO {
 
     // CREATE
     public int createNewWishList(WishList newWishList) {
-        String sql = "INSERT INTO wishlists (user_id, wishlist_name) VALUES (?, ?)";
+        String sql = "INSERT INTO wishlist (user_id, wishlist_name) VALUES (?, ?)";
         return jdbc.update(sql, newWishList.getUser_id(), newWishList.getWishlist_name());
     }
 
@@ -72,25 +72,27 @@ public class DAO {
     // READ
     public List<WishList> getWishLists() {
         List<WishList> wishLists;
-        String sql = "SELECT * FROM wishlists";
+        String sql = "SELECT * FROM wishlist.wishlist";
         wishLists = jdbc.query(sql, wishlistRowMapper);
         return wishLists;
     }
 
     public WishList getWishListById(int id) {
-        String sql = "SELECT * FROM wishlists WHERE wishlist_id = ?";
+        String sql = "SELECT * FROM wishlist WHERE wishlist_id = ?";
         return jdbc.queryForObject(sql, wishlistRowMapper, id);
     }
 
     // UPDATE
+
     public int updateWishList(WishList newWishList) {
-        String sql =  "UPDATE wishlists SET wishlist_name = ? WHERE wishlist_id = ?";
+        String sql =  "UPDATE wishlist SET wishlist_name = ? WHERE wishlist_id = ?";
         return jdbc.update(sql, newWishList.getUser_id(), newWishList.getWishlist_name());
     }
 
+
     // DELETE
     public int deleteWishListById(int id) {
-        String sql = "DELETE FROM wishlists WHERE wishlist_id = ?";
+        String sql = "DELETE FROM wishlist WHERE wishlist_id = ?";
         return jdbc.update(sql, id);
     }
 
@@ -122,9 +124,9 @@ public class DAO {
     }
 
     // UPDATE
-    public int updateWish(Wish newWish) {
-        String sql = "UPDATE wish SET wish_name = ?, wish_price = ? WHERE wish_id = ?";
-        return jdbc.update(sql, newWish.getWish_name(), newWish.getWish_price(), newWish.getWish_link());
+    public int updateWish(Wish newWish, int id) {
+        String sql = "UPDATE wish SET wish_name = ?, wish_price = ?, wish_link = ? WHERE wish_id = ?";
+        return jdbc.update(sql, newWish.getWish_name(), newWish.getWish_price(), newWish.getWish_link(), id);
     }
 
 

@@ -54,17 +54,33 @@ public class WishListRepositoryTest {
 
     // Test WishList
 
-//    @Test
-//    void createNewWishlist() {
-//        rep.createNewWishList(new WishList(1, "testWishlist"));
-//        var at = rep.getWishLists();
-//        for (WishList wl : at) {
-//            if (wl.getWishlist_name().equals("testWishlist")) {
-//                assertThat(wl).isNotNull();
-//                assertThat(wl.getWichlist_id() == 2);
-//            }
-//        }
-//    }
+    @Test
+    void createNewWishlist() {
+        rep.createNewWishList(new WishList(1, "testWishlist"));
+        var wishLists = rep.getWishLists();
+
+        for (WishList w : wishLists) {
+            if (w.getWishlist_name().equals("testWishlist")) {
+                assertThat(w).isNotNull();
+                assertThat(w.getWichlist_id()).isEqualTo(2);
+            }
+        }
+
+
+    }
+
+
+    @Test
+    void modifyWishList() {
+        var at = rep.getWishListById(1);
+        assertThat(at.getWishlist_name()).isEqualTo("test");
+
+        rep.deleteWishListById(at.getWichlist_id());
+        var at2 = rep.getWishLists();
+        for (WishList w : at2) {
+            assertThat(w.getWichlist_id() != at.getWichlist_id());
+        }
+    }
 
 
     @Test
@@ -78,7 +94,24 @@ public class WishListRepositoryTest {
         }
     }
 
+    @Test
+    void modifyWish() {
+        var at = rep.getWishById(1);
+        assertThat(at.getWish_name()).isEqualTo("test1");
+        rep.updateWish(new Wish("testUpdatedWishName", 200.2, "newLink.com"), at.getWish_id());
+        var at2 = rep.getWishById(1);
+        assertThat(at2.getWish_name()).isEqualTo("testUpdatedWishName");
+        assertThat(at2.getWish_link()).isEqualTo("newLink.com");
+        assertThat(at2.getWish_price() == 200.2);
 
+
+        rep.deleteWishById(at.getWish_id());
+
+        var at3 = rep.getWishes();
+        for (Wish wish : at3) {
+            assertThat(wish.getWish_price() != 200.2);
+        }
+    }
 
 
 }
