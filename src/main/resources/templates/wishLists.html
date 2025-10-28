@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WishList</title>
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../static/wishLists-style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">WishList</div>
+    <div class="user-info">
+        <span class="username" th:text="${username}">testUser</span>
+        <img th:src="@{/images/user-icon.png}" alt="User" class="user-avatar">
+    </div>
+</header>
+
+
+<main>
+    <div class="title-section">
+        <h1>Wishlists</h1>
+        <button class="help-btn">Help</button>
+    </div>
+
+    <div class="wishlist-container">
+        <!-- husk at adde keys -->
+        <div class="wishlist-card">
+            <img th:src="@{/images/christmas.jpg}" alt="Christmas Wishlist">
+            <div class="wishlist-title">Christmas Wishlist</div>
+        </div>
+
+        <div class="wishlist-card">
+            <img th:src="@{/images/newyear.jpg}" alt="New Year Wishlist">
+            <div class="wishlist-title">New Years Wishlist</div>
+        </div>
+
+        <div class="wishlist-card">
+            <img th:src="@{/images/birthday.jpg}" alt="Birthday Wishlist">
+            <div class="wishlist-title">Birthday Wishlist</div>
+        </div>
+
+
+        <div class="wishlist-card add-card" th:onclick="'window.location.href=\'/wishlist/new\''">
+            <i class='bx bx-plus'></i>
+        </div>
+    </div>
+</main>
+</body>
+</html>
