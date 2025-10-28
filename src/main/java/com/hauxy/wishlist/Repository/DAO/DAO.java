@@ -85,8 +85,9 @@ public class DAO {
     // UPDATE
 
     public int updateWishList(WishList newWishList) {
-        String sql =  "UPDATE wishlist SET wishlist_name = ? WHERE wishlist_id = ?";
-        return jdbc.update(sql, newWishList.getUser_id(), newWishList.getWishlist_name());
+        String sql = "UPDATE wishlist SET wishlist_name = ? WHERE wishlist_id = ?";
+        return jdbc.update(sql, newWishList.getWishlist_name(), newWishList.getWichlist_id());
+
     }
 
 
@@ -144,7 +145,7 @@ public class DAO {
     // CREATE
 
     // READ
-    public List<Wish> getWishesPerWishlistID(WishList wishList) {
+    public List<Wish> getWishesPerWishlist(WishList wishList) {
         List<Wish> wishes = new ArrayList<>();
         String sql = "SELECT wish_id FROM wishes_per_wishlist WHERE wishlist_id = ?;";
         List<Integer> wishIds = jdbc.queryForList(sql, Integer.class, wishList.getWichlist_id());
@@ -157,9 +158,9 @@ public class DAO {
     }
     // UPDATE
     @Transactional
-    public void updateWishListPerWishlist(WishList wishList) {
-        String sqlDeleteWishesPerWishlist = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ?;";
-        jdbc.update(sqlDeleteWishesPerWishlist, wishList.getWichlist_id());
+    public void updateWishListPerWish(WishList wishList) {
+        String sqlDeleteWishesPerWish = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ?;";
+        jdbc.update(sqlDeleteWishesPerWish, wishList.getWichlist_id());
 
         String sqlInsertWishesPerWishList = "INSERT INTO wishes_per_wishlist (wishlist_id, wish_id) VALUES (?, ?);";
         for(Wish wish : wishList.getWishes()) {
@@ -168,14 +169,37 @@ public class DAO {
         }
     }
 
-    // DELETE
-    public int deleteWishFromWishlist(WishList wishList, Wish wish) {
-        String sql = "DELETE FROM wishes_per_wishlist WHERE wish_id = ?";
-        return jdbc.update(sql, wish.getWish_id());
+    @Transactional
+    public Wish insertWish(Wish wish) {
+        String sql = "INSERT INTO wish (wish_name, wish_price, wish_link) VALUES (?, ?, ?)";
+        jdbc.update(sql, wish.getWish_name(), wish.getWish_price(), wish.getWish_link());
+
+        // Retrieve the generated ID (H2 supports identity retrieval)
+        Integer newId = jdbc.queryForObject("SELECT MAX(wish_id) FROM wish", Integer.class);
+        wish.setWish_id(newId);
+        return wish;
     }
+
+    // DELETE
+    @Transactional
+    public void deleteWishFromWishlist(WishList wishList, Wish wish) {
+        String sqlJoin = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ? AND wish_id = ?";
+        jdbc.update(sqlJoin, wishList.getWichlist_id(), wish.getWish_id());
+
+        String sqlWish = "DELETE FROM wish WHERE wish_id = ?";
+        jdbc.update(sqlWish, wish.getWish_id());
+    }
+
+
 
     public int deleteWishlistInWishes_Per_Wishlist(WishList wishList) {
         String sql = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ?;";
         return jdbc.update(sql, wishList.getWichlist_id());
     }
+
+
+
+
+
+
 }

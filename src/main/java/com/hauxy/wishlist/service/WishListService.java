@@ -2,6 +2,7 @@ package com.hauxy.wishlist.service;
 
 import com.hauxy.wishlist.Repository.DAO.DAO;
 import com.hauxy.wishlist.Repository.repository.WishListRepository;
+import com.hauxy.wishlist.model.Wish;
 import com.hauxy.wishlist.model.WishList;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,10 @@ public class WishListService {
     public List<WishList> getWishLists() {
         return wishListRepository.getWishLists();
     }
+
+
     public WishList getWishListById(int id) {
+
         return wishListRepository.getWishListById(id);
     }
     // UPDATE
@@ -52,5 +56,25 @@ public class WishListService {
         }
     }
 
+
+    public List<Wish> getWishesPerWishlist(WishList wishlist) {
+        return wishListRepository.getWishesPerWishlist(wishlist);
+    }
+
+    public void updateWishListPerWish(WishList wishlist) {
+        wishListRepository.updateWishListPerWish(wishlist);
+    }
+
+    public void deleteWishFromWishlist(WishList wishlist, Wish wish) {
+        wishListRepository.deleteWishFromWishlist(wishlist, wish);
+    }
+
+    public String deleteWishlistInWishes_per_wishlist(WishList wishList) {
+        if (wishListRepository.deleteWishlistInWishes_per_wishlist(wishList) == 1) {
+            return "Success";
+        } else {
+            return "Failed";
+        }
+    }
 
 }

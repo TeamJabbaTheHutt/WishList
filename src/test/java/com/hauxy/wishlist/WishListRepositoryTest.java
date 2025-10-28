@@ -13,8 +13,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
@@ -80,6 +83,9 @@ public class WishListRepositoryTest {
         for (WishList w : at2) {
             assertThat(w.getWichlist_id() != at.getWichlist_id());
         }
+
+
+
     }
 
 
@@ -112,6 +118,90 @@ public class WishListRepositoryTest {
             assertThat(wish.getWish_price() != 200.2);
         }
     }
+
+
+    @Test
+    void getWishListsWishWishes() {
+        var at = rep.getWishLists();
+        for (WishList w : at) {
+            assertThat(w.getWishes()).isNotNull();
+            List<Wish> wishesInWishList = w.getWishes();
+            if (w.getWichlist_id() == 1) {
+                for (Wish wish : wishesInWishList) {
+                    if (wish.getWish_name().equals("test1")) {
+                        assertThat(wish.getWish_price() == 192.232);
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    @Test
+    void getSpecificWishListWithWishes() {
+        var at = rep.getWishListById(1);
+        List<Wish> wishesInWishList = at.getWishes();
+        for (Wish wish : wishesInWishList) {
+            if (wish.getWish_name().equals("test1")){
+                assertThat(wish.getWish_price() == 192.232);
+            }
+        }
+    }
+
+    @Test
+    void addNewWish() {
+        WishList wishList = rep.getWishListById(1);
+
+        Wish wish = new Wish("testWish", 200.1, "link.com");
+        wish = rep.insertWish(wish);
+
+        wishList.insertNewWish(wish);
+
+        rep.updateWishList(wishList);
+
+        var at = rep.getWishListById(wishList.getWichlist_id());
+        List<Wish> wishes = at.getWishes();
+        assertTrue(wishes.stream().anyMatch(w -> w.getWish_name().equals("testWish") && w.getWish_price() == 200.1));
+    }
+
+    @Test
+    void deleteWishFromSpecificWishlist() {
+        WishList wl = rep.getWishListById(1);
+
+        Wish wish = wl.getWishes().get(0);
+        rep.deleteWishFromWishlist(wl, wish);
+        WishList updated = rep.getWishListById(1);
+        boolean stillThere = false;
+        for (Wish w : updated.getWishes()) {
+            if (w.getWish_id() == wish.getWish_id()) {
+                stillThere = true;
+            }
+        }
+
+        assertFalse(stillThere, "Wish should be removed from this wishlist");
+    }
+
+    @Test
+    void deleteWishlistAndLinkedWishes() {
+        WishList wl = rep.getWishListById(1);
+
+        assertTrue(!wl.getWishes().isEmpty(), "Wishlist should have wishes before deleting");
+
+        rep.deleteWishlistInWishes_per_wishlist(wl);
+
+        var at = rep.getWishLists();
+        assertTrue(at.isEmpty());
+        for (WishList wishList : at) {
+            assertThat(wishList.getWishes().isEmpty());
+            assertThat(wishList.getWishlist_name().isEmpty());
+        }
+
+        var at2 = rep.getWishesPerWishlist(wl);
+        assertTrue(at2.isEmpty());
+
+    }
+
 
 
 }

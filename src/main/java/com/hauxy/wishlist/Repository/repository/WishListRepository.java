@@ -52,19 +52,36 @@ public class WishListRepository {
 
     // READ
     public List<WishList> getWishLists() {
-        return dao.getWishLists();
+        List<WishList> wishlist = dao.getWishLists();
+
+
+        for (WishList w : wishlist) {
+            List<Wish> wishes = getWishesPerWishlist(w);
+            w.populateWishesForWishlist(wishes);
+        }
+
+        return wishlist;
     }
     public WishList getWishListById(int id) {
-        return dao.getWishListById(id);
+        WishList wishlist = dao.getWishListById(id);
+
+
+
+        List<Wish> wishes = getWishesPerWishlist(wishlist);
+        wishlist.populateWishesForWishlist(wishes);
+
+        return wishlist;
     }
     // UPDATE
     public int updateWishList(WishList newWishList) {
-        return dao.updateWishList(newWishList);
+        dao.updateWishList(newWishList);
+        dao.updateWishListPerWish(newWishList);
+        return 1;
     }
 
     // DELETE
     public int deleteWishListById(int id) {
-        return dao.deleteUserById(id);
+        return dao.deleteWishListById(id);
     }
 
     // Wish
@@ -73,6 +90,10 @@ public class WishListRepository {
     // CREATE
     public int createNewWish(Wish newWish) {
         return dao.createNewWish(newWish);
+    }
+
+    public Wish insertWish(Wish wish) {
+        return dao.insertWish(wish);
     }
     // READ
     public List<Wish> getWishes() {
@@ -88,8 +109,34 @@ public class WishListRepository {
     }
     // DELETE
     public int deleteWishById(int id) {
-        return dao.deleteUserById(id);
+        return dao.deleteWishById(id);
 
+    }
+
+
+    // wishesPerWishlist
+
+    public List<Wish> getWishesPerWishlist(WishList wishlist) {
+        return dao.getWishesPerWishlist(wishlist);
+    }
+
+    public void updateWishListPerWish(WishList wishlist) {
+        dao.updateWishListPerWish(wishlist);
+
+    }
+
+    public void deleteWishFromWishlist(WishList wishlist, Wish wish) {
+        dao.deleteWishFromWishlist(wishlist, wish);
+    }
+
+    public int deleteWishlistInWishes_per_wishlist(WishList wishlist) {
+        deleteWishListById(wishlist.getWichlist_id());
+        List<Wish> wishes = wishlist.getWishes();
+        for (Wish wish : wishes) {
+            deleteWishById(wish.getWish_id());
+
+        }
+        return dao.deleteWishlistInWishes_Per_Wishlist(wishlist);
     }
 
 
