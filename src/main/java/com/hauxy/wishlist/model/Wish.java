@@ -6,8 +6,10 @@ public class Wish {
     private double wish_price;
     private String wish_link;
 
-    public Wish(int wish_id, String wish_name, double wish_price, String wish_link) {
-        this.wish_id = wish_id;
+
+
+    public Wish() {}
+    public Wish(String wish_name, double wish_price, String wish_link) {
         this.wish_name = wish_name;
         this.wish_price = wish_price;
         this.wish_link = wish_link;
