@@ -13,8 +13,26 @@ body {
     background: rgba(248, 243, 237, 0.84);
 }
 
-.dashboard {
-    justify-content: right;
+/* Body: placér dashboard øverst, centreret horisontalt */
+body.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgba(248, 243, 237, 0.84);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Unik container som ikke påvirkes af .wrapper */
+.dashboard-container {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background: transparent;
+    padding: 0;
 }
 
 .wrapper {
@@ -132,3 +150,6 @@ body {
     transform: scale(1.05);
     background: linear-gradient(135deg, #33bbff, #0099ff);
 }
+
+
+

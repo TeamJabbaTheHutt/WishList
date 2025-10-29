@@ -14,13 +14,11 @@
 
   <h1 style="text-align: center;">My Wishlists</h1>
 
-  <!-- Create new wishlist button -->
   <div style="text-align: center; margin: 20px 0;">
     <button class="create-btn" onclick="location.href='/wishlists/create'">
       <i class='bx bx-plus'></i> Create New Wishlist
     </button>
   </div>
-
 
   <div th:if="${wishlists.size() == 0}" style="text-align: center;">
     <p>You don’t have any wishlists yet.</p>
