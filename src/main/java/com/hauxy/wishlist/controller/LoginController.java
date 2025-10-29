@@ -4,7 +4,11 @@ import com.hauxy.wishlist.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+@RequestMapping("/login")
 @Controller
 public class LoginController {
     private LoginService loginService;
@@ -14,8 +18,19 @@ public class LoginController {
     }
 
     @GetMapping()
-    public String login(Model model) {
-        model.addAttribute("email", email);
-        model.addAttribute("password", password);
+    public String showLogin() {
+        return "login";
+    }
+
+    @PostMapping()
+    public String handleLogin(@RequestParam String email, @RequestParam String password, Model model) {
+
+        if (!loginService.checkCredentials(email, password)) {
+            model.addAttribute("message", "✅ Login successful");
+        } else {
+            model.addAttribute("message", "❌ Invalid username or password");
+        }
+
+        return "login";
     }
 }

@@ -10,10 +10,10 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="" method="post">
+        <form action="" method="post" th:object="${User}">
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Username" required>
+                <input type="text" placeholder="Email" th:field="${}" required>
                 <i class='bx  bxs-user'  ></i>
             </div>
             <div class="input-box">
@@ -28,9 +28,11 @@
             <button type="submit" class="btn">Login</button>
 
             <div class="register">
-                <p>Don't have an account? <a href="#">Register</a> </p>
+                <p>Don't have an account? <a href="register.html">Register</a> </p>
             </div>
         </form>
+
+        <p class="error-display-area" th:text="${message}"></p>
     </div>
 </body>
 </html>

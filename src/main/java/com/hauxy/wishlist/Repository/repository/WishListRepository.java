@@ -28,6 +28,7 @@ public class WishListRepository {
     public List<User> getUsers() {
         return dao.getUsers();
     }
+
     // UPDATE
     public User getUserById(int id) {
         return dao.getUserById(id);
