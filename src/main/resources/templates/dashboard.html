@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlists</title>
+
+  <link rel="stylesheet" th:href="@{/css/login-style.css}">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+
+  <style>
+    .create-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #00aaff, #0077cc);
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .create-btn i {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+
+    .create-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #33bbff, #0099ff);
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <h1 style="text-align: center;">My Wishlists</h1>
+
+  <!-- Create new wishlist button -->
+  <div style="text-align: center; margin: 20px 0;">
+    <button class="create-btn" onclick="location.href='/wishlists/create'">
+      <i class='bx bx-plus'></i> Create New Wishlist
+    </button>
+  </div>
+
+
+  <div th:if="${wishlists.size() == 0}" style="text-align: center;">
+    <p>You don’t have any wishlists yet.</p>
+  </div>
+
+
+  <div th:each="wishlist : ${wishlists}" style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 th:text="${wishlist.wishlistName}" style="margin: 0;">Wishlist Name</h3>
+      <button class="btn"
+              style="background-color: #004b80; color: white; width: auto; padding: 5px 15px;"
+              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishlistId} + '\';'">
+        <i class='bx bx-trash'></i> Delete
+      </button>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
