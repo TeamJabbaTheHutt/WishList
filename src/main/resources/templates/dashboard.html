@@ -10,32 +10,28 @@
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body class="dashboard">
-<div class="wrapper-dashboard">
+<div class="dashboard-container">
+  <h1>My Wishlists</h1>
 
-  <h1 style="text-align: center;">My Wishlists</h1>
-
-  <div style="text-align: center; margin: 20px 0;">
+  <div class="dashboard-actions">
     <button class="create-btn" onclick="location.href='/wishlists/create'">
       <i class='bx bx-plus'></i> Create New Wishlist
     </button>
   </div>
 
-  <div th:if="${wishlists.size() == 0}" style="text-align: center;">
+  <div th:if="${wishlists.size() == 0}" class="empty-state">
     <p>You don’t have any wishlists yet.</p>
   </div>
 
-
-  <div th:each="wishlist : ${wishlists}" style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <h3 th:text="${wishlist.wishlistName}" style="margin: 0;">Wishlist Name</h3>
-      <button class="btn"
-              style="background-color: #004b80; color: white; width: auto; padding: 5px 15px;"
+  <div th:each="wishlist : ${wishlists}" class="wishlist-item">
+    <div class="wishlist-header">
+      <h3 th:text="${wishlist.wishlistName}">Wishlist Name</h3>
+      <button class="delete-btn"
               th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishlistId} + '\';'">
         <i class='bx bx-trash'></i> Delete
       </button>
     </div>
   </div>
-
 </div>
 </body>
 </html>

@@ -13,7 +13,6 @@ body {
     background: rgba(248, 243, 237, 0.84);
 }
 
-/* Body: placér dashboard øverst, centreret horisontalt */
 body.dashboard {
     display: flex;
     flex-direction: column;
@@ -24,7 +23,6 @@ body.dashboard {
     padding: 40px 20px;
 }
 
-/* Unik container som ikke påvirkes af .wrapper */
 .dashboard-container {
     width: 100%;
     max-width: 900px;
@@ -151,5 +149,64 @@ body.dashboard {
     background: linear-gradient(135deg, #33bbff, #0099ff);
 }
 
+.dashboard-container {
+    width: 100%;
+    max-width: 800px;
+    background: transparent;
+    padding: 20px;
+}
+
+.dashboard-container h1 {
+    text-align: center;
+    color: #004b80;
+    margin-bottom: 30px;
+}
+
+.dashboard-actions {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #555;
+}
+
+.wishlist-item {
+    background: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wishlist-header h3 {
+    margin: 0;
+    color: #004b80;
+}
+
+.delete-btn {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-btn i {
+    margin-right: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #e74c3c;
+}
 
 
