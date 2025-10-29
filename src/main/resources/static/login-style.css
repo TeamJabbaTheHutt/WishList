@@ -13,6 +13,10 @@ body {
     background: rgba(248, 243, 237, 0.84);
 }
 
+.dashboard {
+    justify-content: right;
+}
+
 .wrapper {
     width: 420px;
     background: #004b80;
@@ -75,7 +79,7 @@ body {
     text-decoration: underline;
 }
 
-.wrapper .btn {
+.wrapper .login-btn {
     width: 100%;
     height: 45px;
     background: #fff;
@@ -103,4 +107,28 @@ body {
 
 .register p a:hover {
     text-decoration: underline;
+}
+
+.create-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #00aaff, #0077cc);
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.create-btn i {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.create-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #33bbff, #0099ff);
 }
