@@ -49,7 +49,7 @@ public class WishListService {
 
     // DELETE
     public String deleteWishListById(int id) {
-        if (wishListRepository.deleteUserById(id) == 1) {
+        if (wishListRepository.deleteWishListById(id) == 1) {
             return "Success";
         } else {
             return "Failed";

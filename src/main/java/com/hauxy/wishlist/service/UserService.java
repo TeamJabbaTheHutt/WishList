@@ -34,7 +34,7 @@ public class UserService {
     }
     // UPDATE
     public User getUserById(int id) {
-        return getUserById(id);
+        return wishListRepository.getUserById(id);
     }
     public String updateUser(User newUser) {
         if (wishListRepository.updateUser(newUser) == 1) {
