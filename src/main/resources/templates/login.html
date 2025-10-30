@@ -10,14 +10,14 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="" method="post" th:object="${User}">
+        <form th:action="@{/login}" method="post">
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="Email" th:field="${}" required>
+                <input type="text" name="email" placeholder="Email"  required>
                 <i class='bx  bxs-user'  ></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password"  required>
                 <i class='bx  bxs-lock'  ></i>
             </div>
 
@@ -32,7 +32,12 @@
             </div>
         </form>
 
-        <p class="error-display-area" th:text="${message}"></p>
+        <p class="error-display-area"
+           th:if="${message}"
+           th:text="${message}"
+           th:classappend="${messageType} == 'success' ? ' success' : ' error'">
+        </p>
+
     </div>
 </body>
 </html>

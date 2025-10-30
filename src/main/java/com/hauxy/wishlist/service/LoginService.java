@@ -14,25 +14,12 @@ public class LoginService {
         this.wishListRepository = wishListRepository;
     }
 
-    public User getUser(String email) {
-        List<User> users = wishListRepository.getUsers();
-        for (User user : users) {
-            if (email.equals(user.getEmail())) {
-                return user;
-            }
-        }
-
-        return null;
-    }
-
     public boolean checkCredentials(String email, String password) {
-        User user = getUser(email);
+        User user = wishListRepository.getUserByEmail(email);
 
-        if (user.getPassword().equals(password)) {
-            return true;
-        }
+        if (user == null) return false;
 
-        return false;
+        return user.getPassword().equals(password);
     }
 
 }

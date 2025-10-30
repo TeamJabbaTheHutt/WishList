@@ -33,6 +33,11 @@ public class WishListRepository {
     public User getUserById(int id) {
         return dao.getUserById(id);
     }
+
+    public User getUserByEmail(String email) {
+        return dao.getUserByEmail(email);
+    }
+
     public int updateUser(User newUser) {
         return dao.updateUser(newUser);
     }

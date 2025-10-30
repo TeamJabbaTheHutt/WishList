@@ -25,10 +25,12 @@ public class LoginController {
     @PostMapping()
     public String handleLogin(@RequestParam String email, @RequestParam String password, Model model) {
 
-        if (!loginService.checkCredentials(email, password)) {
+        if (loginService.checkCredentials(email, password)) {
             model.addAttribute("message", "✅ Login successful");
+            model.addAttribute("messageType", "success");
         } else {
             model.addAttribute("message", "❌ Invalid username or password");
+            model.addAttribute("messageType", "error");
         }
 
         return "login";

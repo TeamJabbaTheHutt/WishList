@@ -110,8 +110,28 @@ body {
 }
 
 .error-display-area {
-    background-color: #333333;
-    color: var(--text-color);
-    padding: 20px;
+    margin-top: 15px;
+    background-color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.error-display-area.success,
+.error-display-area.error {
+    opacity: 1;
+}
+
+.error-display-area.success {
+    background-color: #e6ffe6;
+    color: #1e7d1e;
+}
+
+.error-display-area.error {
+    background-color: #ffe6e6;
+    color: #a80000;
 }
 

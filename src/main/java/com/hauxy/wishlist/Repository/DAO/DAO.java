@@ -44,6 +44,11 @@ public class DAO {
         return jdbc.queryForObject(sql, userRowMapper, id);
     }
 
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        return jdbc.queryForObject(sql, userRowMapper, email);
+    }
+
     // UPDATE
 
     public int updateUser(User newUser) {
