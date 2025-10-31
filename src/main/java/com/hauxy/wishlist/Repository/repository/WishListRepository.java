@@ -35,6 +35,9 @@ public class WishListRepository {
     }
 
     public User getUserByEmail(String email) {
+        if (dao.getUserByEmail(email) == null) {
+            return null;
+        }
         return dao.getUserByEmail(email);
     }
 

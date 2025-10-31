@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/login-style.css">
+    <link rel="stylesheet" th:href="@{/login-style.css}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -30,13 +30,15 @@
             <div class="register">
                 <p>Don't have an account? <a href="register.html">Register</a> </p>
             </div>
-        </form>
 
+
+        </form>
         <p class="error-display-area"
            th:if="${message}"
            th:text="${message}"
            th:classappend="${messageType} == 'success' ? ' success' : ' error'">
         </p>
+
 
     </div>
 </body>
