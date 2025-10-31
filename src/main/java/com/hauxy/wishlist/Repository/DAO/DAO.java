@@ -2,6 +2,7 @@ package com.hauxy.wishlist.Repository.DAO;
 import com.hauxy.wishlist.model.User;
 import com.hauxy.wishlist.model.Wish;
 import com.hauxy.wishlist.model.WishList;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,15 @@ public class DAO {
     public User getUserById(int id) {
         String sql = "SELECT * FROM users WHERE user_id = ?";
         return jdbc.queryForObject(sql, userRowMapper, id);
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try {
+            return jdbc.queryForObject(sql, userRowMapper, email);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     // UPDATE

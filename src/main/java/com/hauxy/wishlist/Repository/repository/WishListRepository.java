@@ -28,10 +28,19 @@ public class WishListRepository {
     public List<User> getUsers() {
         return dao.getUsers();
     }
+
     // UPDATE
     public User getUserById(int id) {
         return dao.getUserById(id);
     }
+
+    public User getUserByEmail(String email) {
+        if (dao.getUserByEmail(email) == null) {
+            return null;
+        }
+        return dao.getUserByEmail(email);
+    }
+
     public int updateUser(User newUser) {
         return dao.updateUser(newUser);
     }
