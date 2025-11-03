@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Wishlist: ' + ${wishlist.getWishlist_name()}">Wishlist</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="wishlist-container">
+    <h1 th:text="'Wishlist: ' + ${wishlist.getWishlist_name()}">Wishlist Name</h1>
+    <p>
+        Created by: <span th:text="${User.getUsername()}">Username</span>
+        <span th:if="${isOwner}" class="owner-badge">Owner</span>
+    </p>
+
+    <h2>Items:</h2>
+    <div th:if="${#lists.isEmpty(wishlist.getWishes())}">
+        <p>No items in this wishlist.</p>
+    </div>
+    <ul th:if="${!#lists.isEmpty(wishlist.getWishes())}">
+        <li th:each="item : ${wishlist.getWishes()}" class="item" th:text="${item.getWish_name()}">Item Name</li>
+    </ul>
+
+
+</div>
+</body>
+</html>

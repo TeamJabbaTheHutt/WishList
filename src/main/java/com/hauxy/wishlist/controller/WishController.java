@@ -24,32 +24,43 @@ public class WishController {
         this.wishService = wishService;
 
     }
+
+
     @GetMapping("/{wishListId}")
-    public String getWishlist(@RequestParam int wishListId, Model model, HttpSession session) {
+    public String getWishlist(@PathVariable int wishListId, Model model, HttpSession session) {
         this.user = (User) session.getAttribute("loggedInUser");
+
+        if (this.user == null) {
+            User testUser = new User();
+            testUser.setUser_id(3);
+            testUser.setUsername("notAdmin");
+            session.setAttribute("loggedInUser", testUser);
+            this.user = testUser;
+        }
         boolean isOwner;
         WishList wishList = wishListService.getWishListById(wishListId);
-        if (user.getUser_id() == wishList.getWichlist_id()) {
+        if (user.getUser_id() == wishList.getUser_id()) {
             isOwner = true;
         } else {
             isOwner = false;
         }
         model.addAttribute("isOwner", isOwner);
         model.addAttribute("wishlist", wishList);
+        model.addAttribute("User", user);
         return "wishlist";
     }
 
-    @GetMapping("/{userId}")
-    public String getWishlists(@RequestParam int userId, HttpSession session) {
-        boolean isOwner;
-        this.user = (User) session.getAttribute("user");
-        if (user.getUser_id() == userId) {
-            isOwner = true;
-        } else {
-            isOwner = false;
-        }
-        return "wishlist";
-    }
+//    @GetMapping("/{userId}")
+//    public String getWishlists(@RequestParam int userId, HttpSession session) {
+//        boolean isOwner;
+//        this.user = (User) session.getAttribute("user");
+//        if (user.getUser_id() == userId) {
+//            isOwner = true;
+//        } else {
+//            isOwner = false;
+//        }
+//        return "wishlist";
+//    }
 
     @PostMapping("/{wishlistId}/{items}/")
     public String createWishlistItemForSpecificWishList(@RequestParam int wishlistId, @ModelAttribute List<Wish> items, Model model, HttpSession session) {
