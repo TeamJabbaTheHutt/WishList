@@ -18,10 +18,20 @@
 
     <p>No items in this wishlist.</p>
   </div>
-  <ul th:if="${!wishes.isEmpty()}">
-    <li th:each="item : ${wishes}" class="item" th:text="${item.wish_name}">Item Name</li>
+  <ul th:if="${!#lists.isEmpty(wishlist.getWishes())}">
+    <li th:each="item : ${wishlist.getWishes()}" class="item">
+      <span th:text="${item.wish_name}">Item Name</span><br>
+      <span th:text="${item.wish_price}">Price</span> kr <br>
+      <a th:href="${item.wish_link}" th:text="${item.wish_link}">Link</a>
+
+      <a th:href="@{/wishlist/{id}/item/{itemId}/delete}"><button>delete</button></a>
+      <a th:href="@{/wishlist/{id}/item/{itemId}/delete}"><button>edit</button></a>
+
+
+    </li>
   </ul>
 
+  <a th:href="@{/wishlist/{id}/add/}"><button>add new wish</button></a>
 
 </div>
 </body>

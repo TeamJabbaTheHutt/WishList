@@ -33,6 +33,8 @@ public class WishController {
         model.addAttribute("wishlist", wishList);
         model.addAttribute("wishes", wishList.getWishes());
         model.addAttribute("user", user);
+        if (user == null) return "login";
+//        if (user == null) return "wishlistGuest";
         if (user.getUser_id() != wishList.getUserId()) {
             return "wishlistGuest";
         }
@@ -62,11 +64,11 @@ public class WishController {
         }
         model.addAttribute("isOwner", isOwner);
         model.addAttribute("result", result);
-        return "redirect:/wishlist";
+        return "redirect:/wishlist/" + wishlistId;
     }
 
 
-    @DeleteMapping("/{wishlistId}/item/{itemId}")
+    @DeleteMapping("/{wishlistId}/item/{itemId}/delete")
     public String deleteWishFromWishlist(@PathVariable int wishlistId,
                                          @PathVariable int itemId, Model model, HttpSession session) {
         boolean isOwner = false;
@@ -90,7 +92,7 @@ public class WishController {
 
         model.addAttribute("isOwser", isOwner);
         model.addAttribute("result", result);
-        return "redirect:/wishlist";
+        return "redirect:/wishlist/" + wishlistId;
     }
 
     @PostMapping("/{wishlistId}/item/{itemId}/reserve")
@@ -109,4 +111,9 @@ public class WishController {
 
         return "redirect:/wishlist";
     }
+
+
+
+
+
 }
