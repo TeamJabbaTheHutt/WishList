@@ -184,7 +184,7 @@ public class DAO {
         String sql = "INSERT INTO wish (wish_name, wish_price, wish_link) VALUES (?, ?, ?)";
         jdbc.update(sql, wish.getWish_name(), wish.getWish_price(), wish.getWish_link());
 
-        // Retrieve the generated ID (H2 supports identity retrieval)
+
         Integer newId = jdbc.queryForObject("SELECT MAX(wish_id) FROM wish", Integer.class);
         wish.setWish_id(newId);
         return wish;

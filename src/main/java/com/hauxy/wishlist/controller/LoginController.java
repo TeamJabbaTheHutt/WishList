@@ -33,6 +33,6 @@ public class LoginController {
             model.addAttribute("messageType", "error");
         }
 
-        return "login";
+        return "wishlist/{email}";
     }
 }
