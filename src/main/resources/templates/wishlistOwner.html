@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist</title>
+
+</head>
+<body>
+<div class="wishlist-container">
+  <h1 th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist Name</h1>
+  <p>
+    Created by: <span th:text="${user.username}">Username</span>
+  </p>
+
+  <h2>Items:</h2>
+  <div th:if="${wishes.isEmpty()}">
+  <!--  <div th:if="${#lists.isEmpty(wishlist.wishes)}"> -->
+
+    <p>No items in this wishlist.</p>
+  </div>
+  <ul th:if="${!wishes.isEmpty()}">
+    <li th:each="item : ${wishes}" class="item" th:text="${item.wish_name}">Item Name</li>
+  </ul>
+
+
+</div>
+</body>
+</html>

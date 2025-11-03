@@ -29,38 +29,18 @@ public class WishController {
     @GetMapping("/{wishListId}")
     public String getWishlist(@PathVariable int wishListId, Model model, HttpSession session) {
         this.user = (User) session.getAttribute("loggedInUser");
-
-        if (this.user == null) {
-            User testUser = new User();
-            testUser.setUser_id(3);
-            testUser.setUsername("notAdmin");
-            session.setAttribute("loggedInUser", testUser);
-            this.user = testUser;
-        }
-        boolean isOwner;
         WishList wishList = wishListService.getWishListById(wishListId);
-        if (user.getUser_id() == wishList.getUser_id()) {
-            isOwner = true;
-        } else {
-            isOwner = false;
-        }
-        model.addAttribute("isOwner", isOwner);
         model.addAttribute("wishlist", wishList);
-        model.addAttribute("User", user);
-        return "wishlist";
+        model.addAttribute("wishes", wishList.getWishes());
+        model.addAttribute("user", user);
+        if (user.getUser_id() != wishList.getUserId()) {
+            return "wishlistGuest";
+        }
+
+        return "wishlistOwner";
     }
 
-//    @GetMapping("/{userId}")
-//    public String getWishlists(@RequestParam int userId, HttpSession session) {
-//        boolean isOwner;
-//        this.user = (User) session.getAttribute("user");
-//        if (user.getUser_id() == userId) {
-//            isOwner = true;
-//        } else {
-//            isOwner = false;
-//        }
-//        return "wishlist";
-//    }
+
 
     @PostMapping("/{wishlistId}/{items}/")
     public String createWishlistItemForSpecificWishList(@RequestParam int wishlistId, @ModelAttribute List<Wish> items, Model model, HttpSession session) {
@@ -68,7 +48,7 @@ public class WishController {
         this.user = (User) session.getAttribute("loggedInUser");
         WishList wishList = wishListService.getWishListById(wishlistId);
         String result = "";
-        if (user.getUser_id() == wishList.getUser_id()) {
+        if (user.getUser_id() == wishList.getUserId()) {
             isOwner = true;
             for (Wish wish : items) {
                 result = wishService.createNewWish(wish);
@@ -95,7 +75,7 @@ public class WishController {
         Wish wish = wishService.getWishById(itemId);
 
         this.user = (User) session.getAttribute("loggedInUser");
-        if (user.getUser_id() == wishList.getUser_id()) {
+        if (user.getUser_id() == wishList.getUserId()) {
             isOwner = true;
             try {
                 wishListService.deleteWishFromWishlist(wishList, wish);
@@ -121,7 +101,7 @@ public class WishController {
         this.user = (User) session.getAttribute("loggedInUser");
         WishList wishList = wishListService.getWishListById(wishlistId);
         String result = "";
-        if (user.getUser_id() == wishList.getUser_id()) {
+        if (user.getUser_id() == wishList.getUserId()) {
             isOwner = true;
         } else {
             isOwner = false;
