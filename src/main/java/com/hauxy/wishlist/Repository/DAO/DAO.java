@@ -75,7 +75,7 @@ public class DAO {
     // CREATE
     public int createNewWishList(WishList newWishList) {
         String sql = "INSERT INTO wishlist (user_id, wishlist_name) VALUES (?, ?)";
-        return jdbc.update(sql, newWishList.getUser_id(), newWishList.getWishlist_name());
+        return jdbc.update(sql, newWishList.getUserId(), newWishList.getWishListName());
     }
 
 
@@ -84,6 +84,13 @@ public class DAO {
         List<WishList> wishLists;
         String sql = "SELECT * FROM wishlist.wishlist";
         wishLists = jdbc.query(sql, wishlistRowMapper);
+        return wishLists;
+    }
+
+    public List<WishList> getWishListsForUser(int userId) {
+        List<WishList> wishLists;
+        String sql = "SELECT * FROM wishlist.wishlist WHERE user_id = ?";
+        wishLists = jdbc.query(sql, wishlistRowMapper, userId);
         return wishLists;
     }
 
@@ -96,7 +103,7 @@ public class DAO {
 
     public int updateWishList(WishList newWishList) {
         String sql = "UPDATE wishlist SET wishlist_name = ? WHERE wishlist_id = ?";
-        return jdbc.update(sql, newWishList.getWishlist_name(), newWishList.getWichlist_id());
+        return jdbc.update(sql, newWishList.getWishListName(), newWishList.getWishListId());
 
     }
 
@@ -158,7 +165,7 @@ public class DAO {
     public List<Wish> getWishesPerWishlist(WishList wishList) {
         List<Wish> wishes = new ArrayList<>();
         String sql = "SELECT wish_id FROM wishes_per_wishlist WHERE wishlist_id = ?;";
-        List<Integer> wishIds = jdbc.queryForList(sql, Integer.class, wishList.getWichlist_id());
+        List<Integer> wishIds = jdbc.queryForList(sql, Integer.class, wishList.getWishListId());
 
         for (int wishId : wishIds) {
             Wish wish = getWishById(wishId);
@@ -170,11 +177,11 @@ public class DAO {
     @Transactional
     public void updateWishListPerWish(WishList wishList) {
         String sqlDeleteWishesPerWish = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ?;";
-        jdbc.update(sqlDeleteWishesPerWish, wishList.getWichlist_id());
+        jdbc.update(sqlDeleteWishesPerWish, wishList.getWishListId());
 
         String sqlInsertWishesPerWishList = "INSERT INTO wishes_per_wishlist (wishlist_id, wish_id) VALUES (?, ?);";
         for(Wish wish : wishList.getWishes()) {
-            jdbc.update(sqlInsertWishesPerWishList, wishList.getWichlist_id(), wish.getWish_id());
+            jdbc.update(sqlInsertWishesPerWishList, wishList.getWishListId(), wish.getWish_id());
 
         }
     }
@@ -194,7 +201,7 @@ public class DAO {
     @Transactional
     public void deleteWishFromWishlist(WishList wishList, Wish wish) {
         String sqlJoin = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ? AND wish_id = ?";
-        jdbc.update(sqlJoin, wishList.getWichlist_id(), wish.getWish_id());
+        jdbc.update(sqlJoin, wishList.getWishListId(), wish.getWish_id());
 
         String sqlWish = "DELETE FROM wish WHERE wish_id = ?";
         jdbc.update(sqlWish, wish.getWish_id());
@@ -204,7 +211,7 @@ public class DAO {
 
     public int deleteWishlistInWishes_Per_Wishlist(WishList wishList) {
         String sql = "DELETE FROM wishes_per_wishlist WHERE wishlist_id = ?;";
-        return jdbc.update(sql, wishList.getWichlist_id());
+        return jdbc.update(sql, wishList.getWishListId());
     }
 
 

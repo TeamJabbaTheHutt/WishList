@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WishList {
-    private int wichlist_id;
-    private int user_id;
-    private String wishlist_name;
+    private int wishListId;
+    private int userId;
+    private String wishListName;
     private List<Wish> wishes =  new ArrayList<>();
 
 
     public WishList() {}
-    public WishList(int user_id, String wishlist_name) {
-        this.user_id = user_id;
-        this.wishlist_name = wishlist_name;
+    public WishList(int userId, String wishListName) {
+        this.userId = userId;
+        this.wishListName = wishListName;
     }
 
     // CRUD
@@ -49,28 +49,28 @@ public class WishList {
 
 
 
-    public int getWichlist_id() {
-        return wichlist_id;
+    public int getWishListId() {
+        return wishListId;
     }
 
-    public void setWichlist_id(int wichlist_id) {
-        this.wichlist_id = wichlist_id;
+    public void setWishListId(int wishListId) {
+        this.wishListId = wishListId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getWishlist_name() {
-        return wishlist_name;
+    public String getWishListName() {
+        return wishListName;
     }
 
-    public void setWishlist_name(String wishlist_name) {
-        this.wishlist_name = wishlist_name;
+    public void setWishListName(String wishListName) {
+        this.wishListName = wishListName;
     }
 }
 
