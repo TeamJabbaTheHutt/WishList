@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -34,5 +36,26 @@ public class WishListController {
         model.addAttribute("user", user);
         model.addAttribute("wishlists", wishList != null ? wishList : List.of());
         return "dashboard";
+    }
+
+    @PostMapping("/create")
+    public String createWishlist(@RequestParam("wishlistName") String wishlistName, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        WishList newWishList = new WishList();
+        newWishList.setWishListName(wishlistName);
+        newWishList.setUserId(user.getUser_id());
+
+        String result = wishListService.createNewWishList(newWishList);
+
+        if ("Success".equals(result)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/dashboard?error=creationFailed";
+        }
     }
 }
