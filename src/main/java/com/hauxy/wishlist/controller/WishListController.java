@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -29,10 +31,23 @@ public class WishListController {
             return "redirect:/login";
         }
 
-        List<WishList> wishList = wishListService.getWishListsForUser(user.getUser_id());
+        List<WishList> wishLists = wishListService.getWishListsForUser(user.getUser_id());
 
         model.addAttribute("user", user);
-        model.addAttribute("wishlists", wishList != null ? wishList : List.of());
+        model.addAttribute("wishlists", wishLists != null ? wishLists : List.of());
         return "dashboard";
     }
+
+    @PostMapping("/delete/{wishListId}")
+    public String deleteWishList(@PathVariable("wishListId") int wishListId, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("loggedInUser");
+
+        if (user != null) {
+            wishListService.deleteWishListById(wishListId);
+        }
+
+        return "redirect:/dashboard";
+    }
+
+
 }

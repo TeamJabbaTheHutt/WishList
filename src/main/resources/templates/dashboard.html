@@ -23,13 +23,14 @@
     <p>You don’t have any wishlists yet.</p>
   </div>
 
-  <div th:each="wishlist : ${wishlists}" class="wishlist-item">
+  <div th:each="item : ${wishlists}" class="wishlist-item">
     <div class="wishlist-header">
-      <h3 th:text="${wishlist.wishListName}">Wishlist Name</h3>
-      <button class="delete-btn"
-              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishListId} + '\';'">
-        <i class='bx bx-trash'></i> Delete
-      </button>
+      <h3 th:text="${item.wishListName}">Wishlist Name</h3>
+      <form th:action="@{'/delete/' + ${item.wishListId}}" method="post" style="display:inline">
+        <button type="submit" class="delete-btn">
+          <i class='bx bx-trash'></i> Delete
+        </button>
+      </form>
     </div>
   </div>
 </div>
