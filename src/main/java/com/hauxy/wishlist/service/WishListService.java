@@ -40,6 +40,10 @@ public class WishListService {
         return wishListRepository.getWishLists();
     }
 
+    public List<WishList> getWishListsForUser(int userId) {
+        return wishListRepository.getWishListsForUser(userId);
+    }
+
 
     public WishList getWishListById(int id) {
 

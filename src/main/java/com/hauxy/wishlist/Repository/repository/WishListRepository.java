@@ -71,6 +71,11 @@ public class WishListRepository {
 
         return wishlist;
     }
+
+    public List<WishList> getWishListsForUser(int userId) {
+        return dao.getWishListsForUser(userId);
+    }
+
     public WishList getWishListById(int id) {
         WishList wishlist = dao.getWishListById(id);
 
@@ -139,7 +144,7 @@ public class WishListRepository {
     }
 
     public int deleteWishlistInWishes_per_wishlist(WishList wishlist) {
-        deleteWishListById(wishlist.getWichlist_id());
+        deleteWishListById(wishlist.getWishListId());
         List<Wish> wishes = wishlist.getWishes();
         for (Wish wish : wishes) {
             deleteWishById(wish.getWish_id());
