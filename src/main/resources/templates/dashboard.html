@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Wishlists</title>
 
-  <link rel="stylesheet" href="/static/login-style.css">
+  <link rel="stylesheet" th:href="@{/login-style.css}">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body class="dashboard">
@@ -19,15 +19,15 @@
     </button>
   </div>
 
-  <div th:if="${wishlists.size() == 0}" class="empty-state">
+  <div th:if="${wishlists == null and wishlists.isEmpty()}" class="empty-state">
     <p>You don’t have any wishlists yet.</p>
   </div>
 
   <div th:each="wishlist : ${wishlists}" class="wishlist-item">
     <div class="wishlist-header">
-      <h3 th:text="${wishlist.wishlistName}">Wishlist Name</h3>
+      <h3 th:text="${wishlist.wishListName}">Wishlist Name</h3>
       <button class="delete-btn"
-              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishlistId} + '\';'">
+              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishListId} + '\';'">
         <i class='bx bx-trash'></i> Delete
       </button>
     </div>

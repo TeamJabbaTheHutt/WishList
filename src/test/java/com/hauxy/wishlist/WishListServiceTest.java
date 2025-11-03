@@ -39,7 +39,7 @@ class WishListServiceTest {
     }
 
     @Test
-    void getWishListsReturnListOfWishList() {
+    void getWishListsReturnListOfWishListId() {
         List<WishList> wishLists = new ArrayList<>();
         wishLists.add(new WishList(1, "WishListName"));
         when(wishListRepository.getWishLists()).thenReturn(wishLists);
@@ -49,7 +49,7 @@ class WishListServiceTest {
     }
 
     @Test
-    void getWishListsByIDReturnSingleWishListObject() {
+    void getWishListsByIDReturnSingleWishListIdObject() {
         WishList wishList = new WishList(1, "WishListName");
         when(wishListRepository.getWishListById(1)).thenReturn(wishList);
         WishList result = wishListService.getWishListById(1);

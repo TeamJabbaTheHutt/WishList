@@ -63,9 +63,9 @@ public class WishListRepositoryTest {
         var wishLists = rep.getWishLists();
 
         for (WishList w : wishLists) {
-            if (w.getWishlist_name().equals("testWishlist")) {
+            if (w.getWishListName().equals("testWishlist")) {
                 assertThat(w).isNotNull();
-                assertThat(w.getWichlist_id()).isEqualTo(2);
+                assertThat(w.getWishListId()).isEqualTo(2);
             }
         }
 
@@ -76,12 +76,12 @@ public class WishListRepositoryTest {
     @Test
     void modifyWishList() {
         var at = rep.getWishListById(1);
-        assertThat(at.getWishlist_name()).isEqualTo("test");
+        assertThat(at.getWishListName()).isEqualTo("test");
 
-        rep.deleteWishListById(at.getWichlist_id());
+        rep.deleteWishListById(at.getWishListId());
         var at2 = rep.getWishLists();
         for (WishList w : at2) {
-            assertThat(w.getWichlist_id() != at.getWichlist_id());
+            assertThat(w.getWishListId() != at.getWishListId());
         }
 
 
@@ -121,12 +121,12 @@ public class WishListRepositoryTest {
 
 
     @Test
-    void getWishListsWishWishes() {
+    void getWishListsWishWishesId() {
         var at = rep.getWishLists();
         for (WishList w : at) {
             assertThat(w.getWishes()).isNotNull();
             List<Wish> wishesInWishList = w.getWishes();
-            if (w.getWichlist_id() == 1) {
+            if (w.getWishListId() == 1) {
                 for (Wish wish : wishesInWishList) {
                     if (wish.getWish_name().equals("test1")) {
                         assertThat(wish.getWish_price() == 192.232);
@@ -160,7 +160,7 @@ public class WishListRepositoryTest {
 
         rep.updateWishList(wishList);
 
-        var at = rep.getWishListById(wishList.getWichlist_id());
+        var at = rep.getWishListById(wishList.getWishListId());
         List<Wish> wishes = at.getWishes();
         assertTrue(wishes.stream().anyMatch(w -> w.getWish_name().equals("testWish") && w.getWish_price() == 200.1));
     }
@@ -194,7 +194,7 @@ public class WishListRepositoryTest {
         assertTrue(at.isEmpty());
         for (WishList wishList : at) {
             assertThat(wishList.getWishes().isEmpty());
-            assertThat(wishList.getWishlist_name().isEmpty());
+            assertThat(wishList.getWishListName().isEmpty());
         }
 
         var at2 = rep.getWishesPerWishlist(wl);
