@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlists</title>
+
+  <link rel="stylesheet" href="/static/login-style.css">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body class="dashboard">
+<div class="dashboard-container">
+  <h1>My Wishlists</h1>
+
+  <div class="dashboard-actions">
+    <button class="create-btn" onclick="location.href='/wishlists/create'">
+      <i class='bx bx-plus'></i> Create New Wishlist
+    </button>
+  </div>
+
+  <div th:if="${wishlists.size() == 0}" class="empty-state">
+    <p>You don’t have any wishlists yet.</p>
+  </div>
+
+  <div th:each="wishlist : ${wishlists}" class="wishlist-item">
+    <div class="wishlist-header">
+      <h3 th:text="${wishlist.wishlistName}">Wishlist Name</h3>
+      <button class="delete-btn"
+              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishlistId} + '\';'">
+        <i class='bx bx-trash'></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
