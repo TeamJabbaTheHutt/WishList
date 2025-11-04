@@ -24,7 +24,9 @@
 
   <div th:each="wishlist : ${wishlists}" class="wishlist-item">
     <div class="wishlist-header">
-      <h3 th:text="${wishlist.wishListName}">Wishlist Name</h3>
+        <h3>
+            <a th:href="'/wishlist/' + ${wishlist.wishListId}" th:text="${wishlist.wishListName}">Wishlist Name</a>
+        </h3>
       <button class="delete-btn"
               th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishListId} + '\';'">
         <i class='bx bx-trash'></i> Delete
