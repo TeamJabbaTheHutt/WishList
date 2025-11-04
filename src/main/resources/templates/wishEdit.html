@@ -3,29 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit New Wish</title>
-
+    <link rel="stylesheet" th:href="@{/login-style.css}">
 </head>
 <body>
-<h1 th:text="wish.wish_name"> Edit wish</h1>
-<form th:action="@{'/wishlist/' + ${wishlistId} +'/'+ ${wish.wish_id} + '/update'}"
+
+<form class="wrapper" th:action="@{'/wishlist/' + ${wishlistId} +'/'+ ${wish.wish_id} + '/update'}"
       th:object="${wish}"
       method="post">
+    <h1 th:text="*{wish_name}"> Edit wish</h1>
+    <label for="wish_name">Wish Name</label>
+    <div class="input-box">
+        <input  id="wish_name" th:field="*{wish_name}">
+    </div>
+    <div class="input-box">
+        <label for="price">Price</label>
+        <input id="price" th:field="*{wish_price}" th:placeholder="*{wish_price}">
 
-    <label for="wish_name">Wish Name</label><br>
-    <textarea id="wish_name" th:field="*{wish_name}"></textarea><br><br>
+    </div>
+    <div class="input-box">
+        <label for="link">Link</label>
+        <input id="link" th:field="*{wish_link}" th:placeholder="*{wish_link}">
 
-    <label for="price">Price</label>
-    <input id="price" th:field="*{wish_price}" th:placeholder="*{wish_price}">
-
-    <label for="link">Link</label>
-    <input id="link" th:field="*{wish_link}" th:placeholder="*{wish_link}">
+    </div>
 
 
 
 
-    <button type="submit" class="formButton">Save Changes</button>
+
+
+
+
+    <button type="submit" class="create-btn">Save Changes</button>
     <a th:href="@{'/wishlist/' + ${wishlist.wishListId}}">
-        <button>Cancel</button>
+        <button class="create-btn">Cancel</button>
     </a>
 </form>
 </body>

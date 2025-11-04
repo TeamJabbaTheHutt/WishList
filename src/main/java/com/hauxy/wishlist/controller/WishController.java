@@ -46,6 +46,13 @@ public class WishController {
 
     @GetMapping("/{wishListId}/add")
     public String showAddWishForm(@PathVariable int wishListId, Model model) {
+        if (user == null) return "login";
+//        if (user == null) return "wishlistGuest";
+        WishList wishList = wishListService.getWishListById(wishListId);
+        if (user.getUser_id() != wishList.getUserId()) {
+            return "wishlistGuest";
+        }
+
         model.addAttribute("wish", new Wish());
         model.addAttribute("wishListId", wishListId);
         return "createNewWish";
@@ -53,13 +60,18 @@ public class WishController {
 
     @PostMapping("/{wishlistId}/wish/save")
     public String addNewWish(@ModelAttribute Wish wish, @PathVariable int wishlistId, Model model) {
+
+
         if (wish.getWish_name() == null || wish.getWish_name().trim().isEmpty()) {
             model.addAttribute("error", "Wish must have a name");
             model.addAttribute("wish", wish);
             return "createNewWish";
         }
-        WishList wishList = wishListService.getWishListById(wishlistId);
 
+        WishList wishList = wishListService.getWishListById(wishlistId);
+        if (user.getUser_id() != wishList.getUserId()) {
+            return "wishlistGuest";
+        }
         wishService.createNewWish(wishList, wish);
         return "redirect:/wishlist/" + wishlistId;
     }
@@ -73,6 +85,9 @@ public class WishController {
 
         String result = "";
         WishList wishList = wishListService.getWishListById(wishlistId);
+        if (user.getUser_id() != wishList.getUserId()) {
+            return "wishlistGuest";
+        }
         Wish wish = wishService.getWishById(itemId);
 
         User user = (User) session.getAttribute("loggedInUser");
@@ -95,6 +110,9 @@ public class WishController {
     @GetMapping("/{wishlistId}/item/{itemId}/edit")
     public String editWishFromWishlist(@PathVariable int wishlistId, @PathVariable int itemId, Model model, HttpSession session) {
         WishList wishList = wishListService.getWishListById(wishlistId);
+        if (user.getUser_id() != wishList.getUserId()) {
+            return "wishlistGuest";
+        }
         Wish wish = wishService.getWishById(itemId);
         model.addAttribute("wish", wish);
         model.addAttribute("wishlist", wishList);
@@ -104,6 +122,10 @@ public class WishController {
 
     @PostMapping("/{wishlistId}/{wishId}/update")
     public String updateEditedWish(@PathVariable int wishlistId, @PathVariable int wishId, @ModelAttribute Wish wish, HttpSession session) {
+        WishList wishList = wishListService.getWishListById(wishlistId);
+        if (user.getUser_id() != wishList.getUserId()) {
+            return "wishlistGuest";
+        }
         wishService.updateWish(wish, wishId);
         return "redirect:/wishlist/" + wishlistId;
     }

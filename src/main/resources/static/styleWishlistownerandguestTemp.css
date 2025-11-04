@@ -1,0 +1,90 @@
+:root {
+    --text-color: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Futura, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: rgba(248, 243, 237, 0.84);
+}
+
+
+.wishlist-container {
+    padding: 20px;
+}
+.items-wrapper {
+    display: flex;             /* horizontal layout */
+    flex-wrap: wrap;           /* wrap to next line if needed */
+    gap: 20px;                 /* space between items */
+}
+
+.items-wrapper {
+    display: flex;       /* horizontal layout only for this list */
+    flex-wrap: wrap;     /* wrap if container is too narrow */
+    gap: 20px;           /* space between items */
+    list-style: none;    /* remove default bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.items-wrapper .item {
+    background: #004b80;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.items-wrapper .item-buttons button {
+    margin: 5px;
+}
+
+.item.add-new {
+    background-color: rgba(122, 122, 122, 0.4);
+    display: flex;
+    height: 220px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 100px;
+    cursor: pointer;
+    position: relative;
+}
+
+.item.add-new .full-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.item-buttons button {
+    background: none;          /* remove background */
+    border: none;              /* remove border */
+    outline: none;             /* remove focus outline */
+    color: var(--text-color);  /* icon color */ /* optional spacing */
+    cursor: pointer;           /* pointer on hover */
+    font-size: 30px;           /* icon size */
+    display: inline-flex;      /* align icons nicely */
+    align-items: center;
+    justify-content: center;
+}

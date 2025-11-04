@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Create New Wish</title>
-
+    <link rel="stylesheet" th:href="@{/login-style.css}">
 </head>
 <body>
 
 
-<h1>Create new Wish</h1>
-<form th:action="@{'/wishlist/' + ${wishListId} + '/wish/save'}"
+
+<form class="wrapper" th:action="@{'/wishlist/' + ${wishListId} + '/wish/save'}"
       th:object="${wish}" method="post">
-    <label for="name">Name</label>
-    <input th:field="*{wish_name}" id="name">
+    <h1>Create new Wish</h1>
 
-    <label for="price">Price</label>
-    <input th:field="*{wish_price}" id="price">
+    <div class="input-box">
+        <input th:field="*{wish_name}" id="name" placeholder="Name">
+    </div>
 
-    <label for="link">Link</label>
-    <input th:field="*{wish_link}" id="link">
+    <div class="input-box">
+        <input th:field="*{wish_price}" id="price" placeholder="Price">
+    </div>
 
-    <button type="submit">OK</button>
+    <div class="input-box">
+        <input th:field="*{wish_link}" id="link" placeholder="Link">
+    </div>
+
+    <button class="create-btn" type="submit">Create</button>
+    <a th:href="@{'/wishlist/' + ${wishListId}}" class="create-btn">Cancel</a>
 </form>
 
 </body>
