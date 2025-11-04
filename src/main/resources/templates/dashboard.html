@@ -5,8 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Wishlists</title>
-
-  <link rel="stylesheet" href="/static/login-style.css">
+    <link rel="stylesheet" th:href="@{/login-style.css}">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body class="dashboard">
@@ -25,9 +24,9 @@
 
   <div th:each="wishlist : ${wishlists}" class="wishlist-item">
     <div class="wishlist-header">
-      <h3 th:text="${wishlist.wishlistName}">Wishlist Name</h3>
+      <h3 th:text="${wishlist.wishListName}">Wishlist Name</h3>
       <button class="delete-btn"
-              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishlistId} + '\';'">
+              th:onclick="'location.href=\'/wishlists/delete/' + ${wishlist.wishListId} + '\';'">
         <i class='bx bx-trash'></i> Delete
       </button>
     </div>

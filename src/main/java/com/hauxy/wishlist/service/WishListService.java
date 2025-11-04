@@ -1,6 +1,6 @@
 package com.hauxy.wishlist.service;
 
-import com.hauxy.wishlist.Repository.DAO.DAO;
+
 import com.hauxy.wishlist.Repository.repository.WishListRepository;
 import com.hauxy.wishlist.model.User;
 import com.hauxy.wishlist.model.Wish;
