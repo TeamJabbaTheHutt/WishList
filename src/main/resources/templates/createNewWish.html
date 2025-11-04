@@ -8,16 +8,20 @@
 <body>
 
 
-
-<form th:action="@{{wishListId}/wish/save}" th:object="${wish}" method="post">
+<h1>Create new Wish</h1>
+<form th:action="@{'/wishlist/' + ${wishListId} + '/wish/save'}"
+      th:object="${wish}" method="post">
     <label for="name">Name</label>
-    <input th:field="${wish.wish_name}" id="name">
-    <label for="price"></label>
-    <input th:field="${wish.wish_price}" id="price">
-    <label for="link"></label>
-    <input th:field="${wish.wish_link}" id="link">
+    <input th:field="*{wish_name}" id="name">
+
+    <label for="price">Price</label>
+    <input th:field="*{wish_price}" id="price">
+
+    <label for="link">Link</label>
+    <input th:field="*{wish_link}" id="link">
 
     <button type="submit">OK</button>
 </form>
+
 </body>
 </html>

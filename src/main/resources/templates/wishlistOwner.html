@@ -5,55 +5,6 @@
   <title th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist</title>
 
 </head>
-
-<style>
-  /* Modal overlay */
-  .addModal {
-    display: none; /* hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5); /* semi-transparent backdrop */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  /* Modal content box */
-  .addModalContent {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    width: 350px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-
-  /* Form input styling */
-  .addModalContent input {
-    display: block;
-    width: 100%;
-    padding: 6px 8px;
-    margin: 6px 0;
-    box-sizing: border-box;
-  }
-
-  /* Buttons styling */
-  .addModalContent button {
-    padding: 6px 12px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-
-  .addModalCancelBtn {
-    background: #ccc;
-    margin-left: 10px;
-  }
-
-
-
-</style>
 <body>
 <div class="wishlist-container">
   <h1 th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist Name</h1>
@@ -73,16 +24,20 @@
       <span th:text="${item.wish_price}">Price</span> kr <br>
       <a th:href="${item.wish_link}" th:text="${item.wish_link}">Link</a>
 
-      <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/item/' + ${item.getWish_id()}' + /delete'}"><button>delete</button></a>
-      <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/item/' + ${item.getWish_id()}/edit}"><button>edit</button></a>
-
+        <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/item/' + ${item.getWish_id()} + '/delete'}">
+            <button>delete</button>
+        </a>
+        <a th:href="@{/wishlist/{wishlistId}/item/{itemId}/edit(wishlistId=${wishlist.wishListId}, itemId=${item.wish_id})}">
+            <button>edit</button>
+        </a>
 
     </li>
   </ul>
 
 
-  <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/add'}"><button>Add New Wish</button></a>
-
+    <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/add'}">
+        <button>Add New Wish</button>
+    </a>
 
 
 

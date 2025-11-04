@@ -188,14 +188,20 @@ public class DAO {
 
     @Transactional
     public void insertWish(WishList wishlist, Wish wish) {
-        String sql = "INSERT INTO wish (wish_name, wish_price, wish_link) VALUES (?, ?, ?)";
-        jdbc.update(sql, wish.getWish_name(), wish.getWish_price(), wish.getWish_link());
+        String insertWishSql = "INSERT INTO wish (wish_name, wish_price, wish_link) VALUES (?, ?, ?)";
+        jdbc.update(insertWishSql, wish.getWish_name(), wish.getWish_price(), wish.getWish_link());
 
 
-        String sqlInsertToJunction = "INSERT INTO wishes_per_wishlist (wishlist_id, wish_id) VALUES (?, ?)";
-        jdbc.update(sqlInsertToJunction, wishlist.getWishListId(), wish.getWish_id());
+        String getIdSql = "SELECT MAX(wish_id) FROM wish";
+        Integer newWishId = jdbc.queryForObject(getIdSql, Integer.class);
+
+
+        wish.setWish_id(newWishId);
+
+
+        String insertJunctionSql = "INSERT INTO wishes_per_wishlist (wishlist_id, wish_id) VALUES (?, ?)";
+        jdbc.update(insertJunctionSql, wishlist.getWishListId(), newWishId);
     }
-
     // DELETE
     @Transactional
     public void deleteWishFromWishlist(WishList wishList, Wish wish) {

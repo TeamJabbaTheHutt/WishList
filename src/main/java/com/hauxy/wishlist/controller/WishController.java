@@ -44,10 +44,9 @@ public class WishController {
 
 
 
-    @PostMapping("/{wishlistId}/add")
-    public String createWishlistItemForSpecificWishList(@RequestParam int wishListId, Model model, HttpSession session) {
-        Wish wish = new Wish();
-        model.addAttribute("wish", wish);
+    @GetMapping("/{wishListId}/add")
+    public String showAddWishForm(@PathVariable int wishListId, Model model) {
+        model.addAttribute("wish", new Wish());
         model.addAttribute("wishListId", wishListId);
         return "createNewWish";
     }
@@ -57,25 +56,28 @@ public class WishController {
         if (wish.getWish_name() == null || wish.getWish_name().trim().isEmpty()) {
             model.addAttribute("error", "Wish must have a name");
             model.addAttribute("wish", wish);
-            return "redirect:/createNewWish";
+            return "createNewWish";
         }
         WishList wishList = wishListService.getWishListById(wishlistId);
+
         wishService.createNewWish(wishList, wish);
-        return "wishlist/" + wishlistId;
+        return "redirect:/wishlist/" + wishlistId;
     }
 
 
-    @DeleteMapping("/{wishlistId}/item/{itemId}/delete")
+
+    @GetMapping("/{wishlistId}/item/{itemId}/delete")
     public String deleteWishFromWishlist(@PathVariable int wishlistId,
-                                         @PathVariable int itemId, Model model, HttpSession session) {
-        boolean isOwner = false;
+                                         @PathVariable int itemId,
+                                         Model model, HttpSession session) {
+
         String result = "";
         WishList wishList = wishListService.getWishListById(wishlistId);
         Wish wish = wishService.getWishById(itemId);
 
-        this.user = (User) session.getAttribute("loggedInUser");
-        if (user.getUser_id() == wishList.getUserId()) {
-            isOwner = true;
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user != null && user.getUser_id() == wishList.getUserId()) {
+
             try {
                 wishListService.deleteWishFromWishlist(wishList, wish);
                 wishList.deleteWish(wish);
@@ -83,14 +85,29 @@ public class WishController {
             } catch (Exception e) {
                 result = "Failed";
             }
-        } else {
-            isOwner = false;
         }
 
-        model.addAttribute("isOwser", isOwner);
         model.addAttribute("result", result);
+
         return "redirect:/wishlist/" + wishlistId;
     }
+
+    @GetMapping("/{wishlistId}/item/{itemId}/edit")
+    public String editWishFromWishlist(@PathVariable int wishlistId, @PathVariable int itemId, Model model, HttpSession session) {
+        WishList wishList = wishListService.getWishListById(wishlistId);
+        Wish wish = wishService.getWishById(itemId);
+        model.addAttribute("wish", wish);
+        model.addAttribute("wishlist", wishList);
+        return "wishEdit";
+    }
+
+
+    @PostMapping("/{wishlistId}/{wishId}/update")
+    public String updateEditedWish(@PathVariable int wishlistId, @PathVariable int wishId, @ModelAttribute Wish wish, HttpSession session) {
+        wishService.updateWish(wish, wishId);
+        return "redirect:/wishlist/" + wishlistId;
+    }
+
 
     @PostMapping("/{wishlistId}/item/{itemId}/reserve")
     public String reserveItemInWishlist(@PathVariable int wishlistId,
