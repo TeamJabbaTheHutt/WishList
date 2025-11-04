@@ -28,6 +28,10 @@ public class UserService {
         }
     }
 
+    public boolean checkIfUserExist(String email) {
+        return wishListRepository.getUserByEmail(email) == null;
+    }
+
     // READ
     public List<User> getUsers() {
         return wishListRepository.getUsers();

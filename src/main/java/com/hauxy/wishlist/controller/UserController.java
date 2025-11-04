@@ -2,6 +2,7 @@ package com.hauxy.wishlist.controller;
 
 import com.hauxy.wishlist.model.User;
 import com.hauxy.wishlist.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,48 +13,43 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
 
 
     @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showRegisterForm() {
         return "register";
     }
 
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, Model model) {
+    public String registerUser(@RequestParam("username") String userName, @RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession httpSession) {
 
-        if (user.getUsername().isEmpty() || user.getEmail().isEmpty() || user.getPassword().isEmpty()) {
-            model.addAttribute("error", "All fields are required");
-            return "register";
-        }
+        if (userService.checkIfUserExist(email)) {
+            model.addAttribute("username",userName);
+            model.addAttribute("email",email);
+            model.addAttribute("password",password);
+            User user = new User(userName,email, password);
 
-        boolean emailExists = false;
-
-
-        for (User existingUser : userService.getUsers()) {
-            if (existingUser.getEmail().equalsIgnoreCase(user.getEmail())) {
-                emailExists = true;
-                break;
+            if (userService.createNewUser(user).equals("Success")) {
+                httpSession.setAttribute("loggedInUser", user);
+                return "redirect:/dashboard";
+            } else {
+                model.addAttribute("message", "❌ Failed to create user, try again");
+                model.addAttribute("messageType", "error");
+                return "register";
             }
-        }
 
-        if (emailExists) {
-            model.addAttribute("error", "Email already exists");
-            return "register";
-        }
-
-
-        String result = userService.createNewUser(user);
-
-        if (result.equals("Success")) {
-            return "redirect:/";
         } else {
-            model.addAttribute("error", "Something went wrong. Please try again.");
+            model.addAttribute("message", "❌ A user with this email already exist");
+            model.addAttribute("messageType", "error");
             return "register";
         }
+
     }
 
 }
