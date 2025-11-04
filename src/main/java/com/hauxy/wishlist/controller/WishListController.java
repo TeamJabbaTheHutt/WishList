@@ -41,8 +41,8 @@ public class WishListController {
         return "dashboard";
     }
 
-    @PostMapping("/delete/{wishListId}")
-    public String deleteWishList(@PathVariable("wishListId") int wishListId, HttpSession httpSession) {
+    @GetMapping("/{wishListId}/delete")
+    public String deleteWishList(@PathVariable int wishListId, HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("loggedInUser");
 
         if (user != null) {

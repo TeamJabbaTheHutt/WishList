@@ -18,20 +18,22 @@
     </button>
   </div>
 
-  <div th:if="${wishlists.size() == 0}" class="empty-state">
+  <div th:if="${wishlists.isEmpty()}" class="empty-state">
     <p>You don’t have any wishlists yet.</p>
   </div>
 
-  <div th:each="item : ${wishlists}" class="wishlist-item">
-    <div class="wishlist-header">
-      <h3 th:text="${item.wishListName}">Wishlist Name</h3>
-      <form th:action="@{'/delete/' + ${item.wishListId}}" method="post" style="display:inline">
-        <button type="submit" class="delete-btn">
-          <i class='bx bx-trash'></i> Delete
-        </button>
-      </form>
-    </div>
-  </div>
+  <ul th:if="${!#lists.isEmpty(wishlists)}">
+    <li th:each="item : ${wishlists}" class="wishlist-item">
+      <div class="wishlist-header">
+        <h3 th:text="${item.wishListName}">Wishlist Name</h3>
+        <a th:href="@{'/dashboard/' + ${item.wishListId} + '/delete'}">
+          <button type="submit" class="delete-btn">
+            <i class='bx bx-trash'></i>
+          </button>
+        </a>
+      </div>
+    </li>
+  </ul>
 </div>
 
 <!-- MODAL -->
