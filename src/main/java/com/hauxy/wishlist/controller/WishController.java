@@ -44,27 +44,24 @@ public class WishController {
 
 
 
-    @PostMapping("/{wishlistId}/{items}/")
-    public String createWishlistItemForSpecificWishList(@RequestParam int wishlistId, @ModelAttribute List<Wish> items, Model model, HttpSession session) {
-        boolean isOwner;
-        this.user = (User) session.getAttribute("loggedInUser");
-        WishList wishList = wishListService.getWishListById(wishlistId);
-        String result = "";
-        if (user.getUser_id() == wishList.getUserId()) {
-            isOwner = true;
-            for (Wish wish : items) {
-                result = wishService.createNewWish(wish);
-                wishList.insertNewWish(wish);
-                wishListService.updateWishListPerWish(wishList);
-                System.out.println(result);
-            }
-        } else {
-            isOwner = false;
-            result = "Failed: User is not the owner";
+    @PostMapping("/{wishlistId}/add")
+    public String createWishlistItemForSpecificWishList(@RequestParam int wishListId, Model model, HttpSession session) {
+        Wish wish = new Wish();
+        model.addAttribute("wish", wish);
+        model.addAttribute("wishListId", wishListId);
+        return "createNewWish";
+    }
+
+    @PostMapping("/{wishlistId}/wish/save")
+    public String addNewWish(@ModelAttribute Wish wish, @PathVariable int wishlistId, Model model) {
+        if (wish.getWish_name() == null || wish.getWish_name().trim().isEmpty()) {
+            model.addAttribute("error", "Wish must have a name");
+            model.addAttribute("wish", wish);
+            return "redirect:/createNewWish";
         }
-        model.addAttribute("isOwner", isOwner);
-        model.addAttribute("result", result);
-        return "redirect:/wishlist/" + wishlistId;
+        WishList wishList = wishListService.getWishListById(wishlistId);
+        wishService.createNewWish(wishList, wish);
+        return "wishlist/" + wishlistId;
     }
 
 

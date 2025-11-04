@@ -3,6 +3,7 @@ package com.hauxy.wishlist.service;
 import com.hauxy.wishlist.Repository.DAO.DAO;
 import com.hauxy.wishlist.Repository.repository.WishListRepository;
 import com.hauxy.wishlist.model.Wish;
+import com.hauxy.wishlist.model.WishList;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,8 @@ public class WishService {
     //CRUD
 
     // CREATE
-    public String createNewWish(Wish newWish) {
-        if (wishListRepository.createNewWish(newWish) == 1) {
-            return "Success";
-        } else {
-            return "Failed";
-        }
+    public void createNewWish(WishList wishList, Wish newWish) {
+        wishListRepository.insertWish(wishList, newWish);
     }
     // READ
     public List<Wish> getWishes() {
