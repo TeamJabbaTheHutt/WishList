@@ -154,7 +154,7 @@ public class WishListRepositoryTest {
         WishList wishList = rep.getWishListById(1);
 
         Wish wish = new Wish("testWish", 200.1, "link.com");
-        wish = rep.insertWish(wish);
+        rep.insertWish(wishList, wish);
 
         wishList.insertNewWish(wish);
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit New Wish</title>
+
+</head>
+<body>
+<h1 th:text="wish.wish_name"> Edit wish</h1>
+<form th:action="@{'/wishlist/' + ${wishlistId} +'/'+ ${wish.wish_id} + '/update'}"
+      th:object="${wish}"
+      method="post">
+
+    <label for="wish_name">Wish Name</label><br>
+    <textarea id="wish_name" th:field="*{wish_name}"></textarea><br><br>
+
+    <label for="price">Price</label>
+    <input id="price" th:field="*{wish_price}" th:placeholder="*{wish_price}">
+
+    <label for="link">Link</label>
+    <input id="link" th:field="*{wish_link}" th:placeholder="*{wish_link}">
+
+
+
+
+    <button type="submit" class="formButton">Save Changes</button>
+    <a th:href="@{'/wishlist/' + ${wishlist.wishListId}}">
+        <button>Cancel</button>
+    </a>
+</form>
+</body>
+</html>

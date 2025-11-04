@@ -8,6 +8,7 @@ public class Wish {
 
 
 
+
     public Wish() {}
     public Wish(String wish_name, double wish_price, String wish_link) {
         this.wish_name = wish_name;

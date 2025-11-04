@@ -4,12 +4,14 @@ import com.hauxy.wishlist.model.User;
 import com.hauxy.wishlist.model.WishList;
 import com.hauxy.wishlist.service.WishListService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
 @Controller
 public class WishListController {
 
+    @Autowired
     private final WishListService wishListService;
 
     public WishListController(WishListService wishListService) {
@@ -50,4 +53,25 @@ public class WishListController {
     }
 
 
+
+    @PostMapping("/create")
+    public String createWishlist(@RequestParam("wishlistName") String wishlistName, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        WishList newWishList = new WishList();
+        newWishList.setWishListName(wishlistName);
+        newWishList.setUserId(user.getUser_id());
+
+        String result = wishListService.createNewWishList(newWishList);
+
+        if ("Success".equals(result)) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/dashboard?error=creationFailed";
+        }
+    }
 }

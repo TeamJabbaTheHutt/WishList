@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="wishlist-container">
+    <h1 th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist Name</h1>
+    <p>
+        Created by: <span th:text="${user.username}">Username</span>
+    </p>
+
+    <h2>Items:</h2>
+    <div th:if="${wishes.isEmpty()}">
+
+
+        <p>No items in this wishlist.</p>
+    </div>
+    <ul th:if="${!#lists.isEmpty(wishlist.getWishes())}">
+        <li th:each="item : ${wishlist.getWishes()}" class="item">
+            <span th:text="${item.wish_name}">Item Name</span><br>
+            <span th:text="${item.wish_price}">Price</span> kr <br>
+            <a th:href="${item.wish_link}" th:text="${item.wish_link}">Link</a>
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+</body>
+</html>
