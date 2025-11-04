@@ -2,6 +2,7 @@ package com.hauxy.wishlist.service;
 
 import com.hauxy.wishlist.Repository.DAO.DAO;
 import com.hauxy.wishlist.Repository.repository.WishListRepository;
+import com.hauxy.wishlist.model.User;
 import com.hauxy.wishlist.model.Wish;
 import com.hauxy.wishlist.model.WishList;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,14 @@ public class WishListService {
 
     private WishListRepository wishListRepository;
 
+
     public WishListService(WishListRepository wishListRepository) {
         this.wishListRepository = wishListRepository;
+
+    }
+
+    public User getUserAfterLogin(String email) {
+        return wishListRepository.getUserByEmail(email);
     }
 
     // CRUD

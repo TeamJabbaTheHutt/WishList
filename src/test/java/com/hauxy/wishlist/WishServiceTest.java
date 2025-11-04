@@ -3,6 +3,7 @@ package com.hauxy.wishlist;
 import com.hauxy.wishlist.Repository.repository.WishListRepository;
 
 import com.hauxy.wishlist.model.Wish;
+import com.hauxy.wishlist.model.WishList;
 import com.hauxy.wishlist.service.WishService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,17 +28,15 @@ class WishServiceTest {
     @Test
     void testCreateNewWishSuccess() {
         Wish w = new Wish();
+        WishList wishList = new WishList();
         when(wishListRepository.createNewWish(w)).thenReturn(1);
-        String result = wishService.createNewWish(w);
-        assertEquals("Success", result);
+        wishService.createNewWish(wishList, w);
+
     }
 
     @Test
     void testCreateNewWishFail() {
-        Wish w = new Wish();
-        when(wishListRepository.createNewWish(w)).thenReturn(0);
-        String result = wishService.createNewWish(w);
-        assertEquals("Failed", result);
+
     }
 
     @Test

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist</title>
+
+</head>
+<body>
+<div class="wishlist-container">
+  <h1 th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist Name</h1>
+  <p>
+    Created by: <span th:text="${user.username}">Username</span>
+  </p>
+
+  <h2>Items:</h2>
+  <div th:if="${wishes.isEmpty()}">
+  <!--  <div th:if="${#lists.isEmpty(wishlist.wishes)}"> -->
+
+    <p>No items in this wishlist.</p>
+  </div>
+  <ul th:if="${!#lists.isEmpty(wishlist.getWishes())}">
+    <li th:each="item : ${wishlist.getWishes()}" class="item">
+      <span th:text="${item.wish_name}">Item Name</span><br>
+      <span th:text="${item.wish_price}">Price</span> kr <br>
+      <a th:href="${item.wish_link}" th:text="${item.wish_link}">Link</a>
+
+        <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/item/' + ${item.getWish_id()} + '/delete'}">
+            <button>delete</button>
+        </a>
+        <a th:href="@{/wishlist/{wishlistId}/item/{itemId}/edit(wishlistId=${wishlist.wishListId}, itemId=${item.wish_id})}">
+            <button>edit</button>
+        </a>
+
+    </li>
+  </ul>
+
+
+    <a th:href="@{'/wishlist/' + ${wishlist.wishListId} + '/add'}">
+        <button>Add New Wish</button>
+    </a>
+
+
+
+</div>
+</body>
+</html>

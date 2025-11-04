@@ -106,8 +106,8 @@ public class WishListRepository {
         return dao.createNewWish(newWish);
     }
 
-    public Wish insertWish(Wish wish) {
-        return dao.insertWish(wish);
+    public void insertWish(WishList wishList, Wish wish) {
+        dao.insertWish(wishList, wish);
     }
     // READ
     public List<Wish> getWishes() {
