@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -134,18 +135,20 @@ public class WishController {
     @PostMapping("/{wishlistId}/item/{itemId}/reserve")
     public String reserveItemInWishlist(@PathVariable int wishlistId,
                                         @PathVariable int itemId,
-                                        HttpSession session) {
-        boolean isOwner;
-        this.user = (User) session.getAttribute("loggedInUser");
-        WishList wishList = wishListService.getWishListById(wishlistId);
-        String result = "";
-        if (user.getUser_id() == wishList.getUserId()) {
-            isOwner = true;
+                                        HttpSession session, RedirectAttributes redirectAttributes) {
+
+        Wish wish = wishService.getWishById(itemId);
+
+
+        if (!wish.getIsReserved()) {
+            wishService.reserveWish(itemId);
+            redirectAttributes.addFlashAttribute("success", "Item reserved successfully!");
         } else {
-            isOwner = false;
+            redirectAttributes.addFlashAttribute("error", "This item is already reserved.");
         }
 
-        return "redirect:/wishlist";
+        return "redirect:/wishlist/" + wishlistId;
+
     }
 
 

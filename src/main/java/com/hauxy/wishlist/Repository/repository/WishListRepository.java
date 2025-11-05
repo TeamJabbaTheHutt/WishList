@@ -153,5 +153,9 @@ public class WishListRepository {
         return dao.deleteWishlistInWishes_Per_Wishlist(wishlist);
     }
 
+    public void reserveWish(int itemId) {
+        dao.reserveWish(itemId);
+    }
+
 
 }

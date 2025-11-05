@@ -219,6 +219,11 @@ public class DAO {
         return jdbc.update(sql, wishList.getWishListId());
     }
 
+    public int reserveWish(int itemId) {
+        String sql = "UPDATE wish SET is_reserved = true WHERE wish_id = ?";
+        return jdbc.update(sql, itemId);
+    }
+
 
 
 
