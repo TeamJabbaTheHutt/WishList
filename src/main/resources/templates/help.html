@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Wish</title>
+    <link rel="stylesheet" th:href="@{/login-style.css}">
+</head>
+
+<body>
+<div id="google_translate_element" style="display: none"></div>
+
+<div class="dashboard-container">
+    <h1>help</h1>
+    <h1>Hello </h1><h1 th:text="${user.username}"></h1>
+
+    <h3>Register</h3>
+    <p>To register, input a Username, email and password and press register</p>
+    <br><br>
+    <h3>Wishlists</h3>
+    <p>Once you are logged in, or have created a new user, you will be taken to the wishlist dashboard</p>
+    <p>Here you can see all of your wishlists, if you don't have any wishlists yet, you can create a new one by pressing "Create"</p>
+    <br><br>
+    <h3>Create wishlist</h3>
+    <p>Once you have pressed create wishlist from the dashboard you can input a desired name for the wishlist and press "Create"</p>
+    <p>And now you have a fresh new wishlist ready for wishes</p>
+    <br><br>
+    <h3>Making wishes</h3>
+    <p>From the dashboard, where you can see your wishlists, you can choose the desired wishlist by pressing the name of the wishlist you want to add wishes to</p>
+    <p>From here you will be taken to the specified wishlist, where you can press the large "+" sign</p>
+    <p>Now a new form will pop up, where you can input the name of the wish, the price and give it a link to the product you wish for.</p>
+    <p>Once the form is completed, you can press "Create" and if you regret you can always press "Cancel"</p>
+    <p>Now your new wish will appear before the large "+"</p>
+    <br><br>
+    <h3>Modify wish</h3>
+    <p>Once you have created a wish, you can press the "edit" button which takes you to a new form.</p>
+    <p>Here you can input the new name, price or link for the wish and press "Save Changes", and if you regret you can always press "Cancel"</p>
+    <p>Now your wish should be updated and appear with the new information</p>
+    <br><br>
+    <h3>Delete wish</h3>
+    <p>If you want to delete a wish, you can simply press the "Delete" button which appears as a small bin icon</p>
+    <p>Now your wish should be removed from the list of wishes.</p>
+    <br><br>
+    <h3>Delete wishlist</h3>
+    <p>If you want to delete an entire wishlist, simply navigate to the dashboard, which holds all of your wishlists and press the "Delete button"
+    Which appears as a small bin icon</p>
+    <br><br>
+    <h3>View Others wishlists</h3>
+    <p>Once you are logged in, you have the option to view others wishlists</p>
+    <p>If they have sent you a link to their wishlist, simply input the link in the url, after you are logged in</p>
+    <p>Now the desired wishlist should appear and you should see the option to reserve a wish</p>
+    <br><br>
+    <h3>Reserve a wish</h3>
+    <p>If you are not able to see a wishlist, follow the help section "View Others wishlists"</p>
+    <p>Once you have navigated to the desired wishlist, you should see the option to "reserve" a wish on the wishlist</p>
+    <p>After pressing the "reserve" button the wish should now be reserved</p>
+    <br><br><br><br>
+    <h3>Sustainable initiatives</h3>
+    <p>We have implemented some proposed wishes for you to wish for a donation in your name as a wish</p>
+    <p>The proposed wishes are displayed under your current wishes in the wishlists</p>
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+</html>
