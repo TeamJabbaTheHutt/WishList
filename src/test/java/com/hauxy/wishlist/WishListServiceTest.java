@@ -2,7 +2,7 @@ package com.hauxy.wishlist;
 
 
 import com.hauxy.wishlist.Repository.repository.WishListRepository;
-import com.hauxy.wishlist.model.User;
+
 import com.hauxy.wishlist.model.Wish;
 import com.hauxy.wishlist.model.WishList;
 import com.hauxy.wishlist.service.WishListService;
