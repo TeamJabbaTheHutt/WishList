@@ -46,4 +46,15 @@ public class WishService {
         }
     }
 
+    public String reserveWish(int itemId) {
+        Wish wish = wishListRepository.getWishById(itemId);
+
+        if (!wish.getIsReserved()) {
+            wishListRepository.reserveWish(itemId);
+            return "Success";
+        }
+
+        return "Failed";
+    }
+
 }

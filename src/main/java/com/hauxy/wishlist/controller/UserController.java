@@ -33,7 +33,7 @@ public class UserController {
             model.addAttribute("username",userName);
             model.addAttribute("email",email);
             model.addAttribute("password",password);
-            User user = new User(userName,email, password);
+            User user = new User(email,userName, password);
 
             if (userService.createNewUser(user).equals("Success")) {
                 httpSession.setAttribute("loggedInUser", user);
