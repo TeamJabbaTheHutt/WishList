@@ -135,15 +135,7 @@ public class WishController {
     public String reserveItemInWishlist(@PathVariable int wishlistId,
                                         @PathVariable int itemId,
                                         HttpSession session) {
-        boolean isOwner;
-        this.user = (User) session.getAttribute("loggedInUser");
-        WishList wishList = wishListService.getWishListById(wishlistId);
-        String result = "";
-        if (user.getUser_id() == wishList.getUserId()) {
-            isOwner = true;
-        } else {
-            isOwner = false;
-        }
+        User user = (User) session.getAttribute("loggedInUser");
 
         return "redirect:/wishlist";
     }
