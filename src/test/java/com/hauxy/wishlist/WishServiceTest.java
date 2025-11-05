@@ -29,15 +29,10 @@ class WishServiceTest {
     void testCreateNewWishSuccess() {
         Wish w = new Wish();
         WishList wishList = new WishList();
-        when(wishListRepository.createNewWish(w)).thenReturn(1);
         wishService.createNewWish(wishList, w);
-
     }
 
-    @Test
-    void testCreateNewWishFail() {
 
-    }
 
     @Test
     void testGetWishes() {
@@ -73,14 +68,14 @@ class WishServiceTest {
 
     @Test
     void testDeleteWishByIdSuccess() {
-        when(wishListRepository.deleteUserById(7)).thenReturn(1);
+        when(wishListRepository.deleteWishById(7)).thenReturn(1);
         String result = wishService.deleteWishById(7);
         assertEquals("Success", result);
     }
 
     @Test
     void testDeleteWishByIdFail() {
-        when(wishListRepository.deleteUserById(7)).thenReturn(0);
+        when(wishListRepository.deleteWishById(7)).thenReturn(0);
         String result = wishService.deleteWishById(7);
         assertEquals("Failed", result);
     }

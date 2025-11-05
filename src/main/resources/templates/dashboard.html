@@ -25,7 +25,7 @@
   <ul th:if="${!#lists.isEmpty(wishlists)}">
     <li th:each="item : ${wishlists}" class="wishlist-item">
       <div class="wishlist-header">
-        <h3 th:text="${item.wishListName}">Wishlist Name</h3>
+        <a th:href="@{'/wishlist/' + ${item.wishListId}}"><h3 th:text="${item.wishListName}">Wishlist Name</h3></a>
         <a th:href="@{'/dashboard/' + ${item.wishListId} + '/delete'}">
           <button type="submit" class="delete-btn">
             <i class='bx bx-trash'></i>
