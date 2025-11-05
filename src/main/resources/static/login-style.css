@@ -190,6 +190,7 @@ body.dashboard {
     align-items: center;
 }
 
+
 .wishlist-header h3 {
     margin: 0;
     color: #004b80;
@@ -305,4 +306,114 @@ body.dashboard {
 @keyframes popIn {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+
+
+/* wislistOwner */
+a {
+    text-decoration: none;
+
+}
+
+.wishlist-container {
+    padding: 20px;
+}
+.wishesHeadersLink {
+    color: var(--text-color);
+}
+.items-wrapper {
+    display: flex;             /* horizontal layout */
+    flex-wrap: wrap;           /* wrap to next line if needed */
+    gap: 20px;                 /* space between items */
+}
+
+.items-wrapper {
+    display: flex;       /* horizontal layout only for this list */
+    flex-wrap: wrap;     /* wrap if container is too narrow */
+    gap: 20px;           /* space between items */
+    list-style: none;    /* remove default bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.items-wrapper .item {
+    background: #004b80;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.items-wrapper .item-buttons button {
+    margin: 5px;
+}
+
+.item.add-new {
+    background-color: rgba(122, 122, 122, 0.4);
+    display: flex;
+    height: 220px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 100px;
+    cursor: pointer;
+    position: relative;
+}
+.item.add-new:hover {
+    background-color:  rgba(122, 122, 122, 0.25);;
+}
+
+.item.add-new .full-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.item-buttons button {
+    background: none;          /* remove background */
+    border: none;              /* remove border */
+    outline: none;             /* remove focus outline */
+    color: var(--text-color);  /* icon color */ /* optional spacing */
+    cursor: pointer;           /* pointer on hover */
+    font-size: 30px;           /* icon size */
+    display: inline-flex;      /* align icons nicely */
+    align-items: center;
+    justify-content: center;
+}
+.headers-wrapper {
+    margin-left: 20px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }

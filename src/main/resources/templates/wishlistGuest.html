@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/login-style.css}">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 <div class="wishlist-container">
-    <h1 th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist Name</h1>
-    <p>
-        Created by: <span th:text="${user.username}">Username</span>
-    </p>
 
-    <h2>Items:</h2>
-    <div th:if="${wishes.isEmpty()}">
+    <div class="headers-wrapper">
+        <h1 th:text="'Wishlist: ' + ${wishlist.wishListName}">Wishlist Name</h1>
+        <h3 th:if="${wishlist.getWishes().isEmpty()}">There are no wishes yet, add some new</h3>
 
-
-        <p>No items in this wishlist.</p>
     </div>
-    <ul th:if="${!#lists.isEmpty(wishlist.getWishes())}">
+
+    <ul class="items-wrapper" th:if="${!#lists.isEmpty(wishlist.getWishes())}">
         <li th:each="item : ${wishlist.getWishes()}" class="item">
-            <span th:text="${item.wish_name}">Item Name</span><br>
-            <span th:text="${item.wish_price}">Price</span> kr <br>
-            <a th:href="${item.wish_link}" th:text="${item.wish_link}">Link</a>
+            <span class="wishesHeaders" th:text="${item.wish_name}">Item Name</span><br>
+            <span class="wishesHeaders" th:text="${item.wish_price}">Price</span> kr <br>
+            <a class="wishesHeadersLink"
+               th:href="${item.wish_link.startsWith('http') ? item.wish_link : 'https://' + item.wish_link}"
+               target="_blank"
+               th:text="${item.wish_link}">Link</a>
         </li>
     </ul>
 
