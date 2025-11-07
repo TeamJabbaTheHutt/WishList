@@ -30,7 +30,8 @@ CREATE TABLE wish (
                       wish_id INT AUTO_INCREMENT PRIMARY KEY,
                       wish_name VARCHAR(100) NOT NULL,
                       wish_price DOUBLE,
-                      wish_link VARCHAR(255)
+                      wish_link VARCHAR(255),
+                      is_reserved BOOLEAN DEFAULT false
 );
 
 

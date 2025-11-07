@@ -9,11 +9,10 @@ public class Wish {
 
 
     public Wish() {}
-    public Wish(String wish_name, double wish_price, String wish_link, boolean isReserved) {
+    public Wish(String wish_name, double wish_price, String wish_link) {
         this.wish_name = wish_name;
         this.wish_price = wish_price;
         this.wish_link = wish_link;
-        this.isReserved = isReserved;
     }
 
     public int getWish_id() {
