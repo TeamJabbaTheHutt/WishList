@@ -30,7 +30,7 @@
 
                 <!-- Reserve button only if NOT reserved -->
                 <form th:if="${!item.isReserved}"
-                      th:action="@{'/wishlist/' + ${wishlist.id} + '/item/' + ${item.id} + '/reserve'}"
+                      th:action="@{'/wishlist/' + ${wishlist.wishListId} + '/item/' + ${item.wish_id} + '/reserve'}"
                       method="post">
                     <button class="reserve" type="submit">Reserve</button>
                 </form>
